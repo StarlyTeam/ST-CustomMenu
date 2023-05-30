@@ -1,16 +1,25 @@
-package net.starly.boilerplate;
+package net.starly.menu;
 
-import net.starly.core.bstats.Metrics;
+import lombok.Getter;
+import net.starly.menu.command.CustomMenuCmd;
+import net.starly.menu.command.tabcomplete.CustomMenuTab;
+import net.starly.menu.message.MessageLoader;
+import org.bukkit.command.PluginCommand;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class BoilerPlateMain extends JavaPlugin {
+import java.io.File;
 
-    private static BoilerPlateMain instance;
-    public static BoilerPlateMain getInstance() {
-        return instance;
+public class CustomMenu extends JavaPlugin {
+
+    @Getter private static CustomMenu instance;
+
+
+    @Override
+    public void onLoad() {
+        instance = this;
     }
-
 
     @Override
     public void onEnable() {
@@ -25,16 +34,20 @@ public class BoilerPlateMain extends JavaPlugin {
 
         /* SETUP
          ──────────────────────────────────────────────────────────────────────────────────────────────────────────────── */
-        instance = this;
-        new Metrics(this, 12345); // TODO: 수정
+//        new Metrics(this, 12345); // TODO: 수정
 
         /* CONFIG
          ──────────────────────────────────────────────────────────────────────────────────────────────────────────────── */
-        // TODO: 수정
+        File messageConfigFile = new File(getDataFolder(), "message.yml");
+        if (!messageConfigFile.exists()) saveResource("message.yml", false);
+        MessageLoader.load(YamlConfiguration.loadConfiguration(messageConfigFile));
 
         /* COMMAND
          ──────────────────────────────────────────────────────────────────────────────────────────────────────────────── */
-        // TODO: 수정
+        PluginCommand customMenuCommand = getServer().getPluginCommand("custom-menu");
+        customMenuCommand.setExecutor(new CustomMenuCmd());
+        customMenuCommand.setTabCompleter(new CustomMenuTab());
+
 
         /* LISTENER
          ──────────────────────────────────────────────────────────────────────────────────────────────────────────────── */
