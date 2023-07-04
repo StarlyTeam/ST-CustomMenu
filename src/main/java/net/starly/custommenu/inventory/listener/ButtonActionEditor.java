@@ -147,7 +147,7 @@ public class ButtonActionEditor extends InventoryListenerBase {
 
                 unregisterListener(player.getUniqueId());
                 player.closeInventory();
-                openInventory(player, menu, slot, paginationManager.getCurrentPage());
+                openInventory(player, menu, holder.getSlot(), paginationManager.getCurrentPage());
             }
         }
     }

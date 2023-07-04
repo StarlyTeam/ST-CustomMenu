@@ -48,7 +48,7 @@ public class CustomMenu extends JavaPlugin {
         MessageLoader.load(YamlConfiguration.loadConfiguration(messageConfigFile));
 
         File menuFolder = new File(getDataFolder(), "menu/");
-        if (!menuFolder.exists()) saveResource("menu/", false);
+        if (!menuFolder.exists()) menuFolder.mkdirs();
 
         MenuRepository.getInstance().loadAllMenu();
 
