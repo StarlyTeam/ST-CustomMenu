@@ -1,5 +1,5 @@
 name: ST-CustomMenu
-main: net.starly.menu.CustomMenu
+main: net.starly.custommenu.CustomMenu
 author: Starly Team
 website: http://starly.kr/
 
@@ -12,7 +12,35 @@ version: 1.0
 api-version: 1.13
 
 commands:
-
   custom-menu:
     description: 커스텀 메뉴 명령어
     aliases: [ menu, cm, 커스텀메뉴, 메뉴 ]
+
+permissions:
+  starly.custommenu.open:
+    description: 커스텀 메뉴를 열 수 있는 권한입니다.
+    default: true
+  starly.custommenu.create:
+    description: 커스텀 메뉴를 생성할 수 있는 권한입니다.
+    default: op
+  starly.custommenu.delete:
+    description: 커스텀 메뉴를 삭제할 수 있는 권한입니다.
+    default: op
+  starly.custommenu.edit:
+    description: 커스텀 메뉴를 수정할 수 있는 권한입니다.
+    default: op
+  starly.custommenu.list:
+    description: 커스텀 메뉴 목록을 확인할 수 있는 권한입니다.
+    default: op
+  starly.custommenu.expansion:
+    description: 액션 확장 플러그인을 관리할 수 있는 권한입니다.
+    default: op
+  starly.custommenu.expansion.unload:
+    description: 액션 확장 플러그인을 언로드할 수 있는 권한입니다.
+    default: op
+  starly.custommenu.expansion.load:
+    description: 액션 확장 플러그인을 로드할 수 있는 권한입니다.
+    default: op
+  starly.custommenu.reload:
+    description: 커스텀 메뉴를 리로드할 수 있는 권한입니다.
+    default: op

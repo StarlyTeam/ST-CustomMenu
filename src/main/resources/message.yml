@@ -8,8 +8,99 @@ messages:
   prefix: " &b메뉴 &6| "
 
   # 구성파일을 다시 읽어온 경우
-  reloadComplete: "&f모든 구성 파일을 다시 읽어왔습니다."
+  reloadComplete: "&a모든 구성 파일을 다시 읽어왔습니다."
 
+
+  # 메뉴를 생성한 경우
+  # {menu}    : 생성된 메뉴의 ID
+  # {line}  : 생성된 메뉴의 라인
+  # {title} : 생성된 메뉴의 제목
+  menuCreated: "&a메뉴 &6{menu} &a을(를) 생성하였습니다. &7( &6{line} 줄&7, &6{title} &7)"
+
+  # 메뉴를 삭제한 경우
+  # {menu} : 삭제된 메뉴의 ID
+  menuDeleted: "&a메뉴 &6{menu} &a을(를) 삭제하였습니다."
+
+  # 메뉴 목록을 확인한 경우
+  # {list} : 메뉴 목록
+  menuList: "&a메뉴 목록: &6{list}"
+
+
+  # 액션을 생성하려는 경우
+  enterActionType: "&6생성할 액션의 타입을 입력해주세요. &7(취소하려면 '-'를 입력)"
+
+  # 메뉴 제목을 변경하려는 경우
+  enterNewTitle: "&6변경할 제목을 입력해주세요. &7(취소하려면 '-'를 입력)"
+  
+  # 액션인자를 변경하려는 경우
+  enterNewArg: "&6변경할 액션인자 값을 입력해주세요. &7(취소하려면 '-'를 입력)"
+      
+  # 액션인자 인덱스를 변경하려는 경우
+  enterNewArgIndex: "&6액션인자를 이동할 인덱스를 입력해주세요. &7(취소하려면 '-'를 입력)"
+
+  # 입력을 취소한 경우
+  inputCancelled: "&c입력을 취소하였습니다."
+
+
+  # (글로벌) 액션인자를 설정한 경우
+  # {menu}       : 설정된 메뉴의 ID
+  # {actionType} : 설정된 액션의 타입
+  # {argIndex}   : 설정된 액션인자의 인덱스
+  # {value}      : 설정된 값
+  ArgumentSet_GLOBAL: "&6{menu}@{actionType} &a액션의 &6{argIndex} &a번 인자의 값을 &6{value} &a(으)로 설정하였습니다."
+
+  # (일반) 액션인자를 설정한 경우
+  # {menu}       : 설정된 메뉴의 ID
+  # {slot}       : 설정된 버튼의 슬롯
+  # {actionType} : 설정된 액션의 타입
+  # {actionIndex}: 설정된 액션의 인덱스
+  # {argIndex}   : 설정된 액션인자의 인덱스
+  # {value}      : 설정된 값
+  ArgumentSet_GENERAL: "&6{menu}@{slot}:{actionIndex} &a액션의 &6{argIndex} &a번 인자의 값을 &6{value} &a(으)로 설정하였습니다."
+
+  # (글로벌) 액션인자를 설정한 경우
+  # {menu}       : 설정된 메뉴의 ID
+  # {actionType} : 설정된 액션의 타입
+  # {argIndex}   : 설정된 액션인자의 인덱스
+  # {value}      : 설정된 값
+  ArgumentIndexSet_GLOBAL: "&6{menu}@{actionType} &a액션의 &6{argIndex} &a번 인자의 값을 &6{value} &a(으)로 설정하였습니다."
+
+  # (일반) 액션인자의 인덱스를 변경한 경우
+  # {menu}       : 설정된 메뉴의 ID
+  # {slot}       : 설정된 버튼의 슬롯
+  # {actionType} : 설정된 액션의 타입
+  # {actionIndex}: 설정된 액션의 인덱스
+  # {argIndex}   : 설정된 액션인자의 인덱스
+  # {value}      : 설정된 값
+  ArgumentIndexSet_GENERAL: "&6{menu}@{slot}:{actionIndex} &a액션의 &6{argIndex} &a번 인자의 인덱스를 &6{value} &a(으)로 설정하였습니다."
+
+  # (글로벌) 액션인자를 삭제한 경우
+  # {menu}       : 삭제된 메뉴의 ID
+  # {actionType} : 삭제된 액션의 타입
+  # {argIndex}   : 삭제된 액션인자의 인덱스
+  ArgumentRemoved_GLOBAL: "&6{menu}@{actionType} &a액션의 &6{argIndex} &a번 인자를 삭제하였습니다."
+
+  # (일반) 액션인자를 추가한 경우
+  # {menu}        : 추가된 메뉴의 ID
+  # {slot}        : 추가된 버튼의 슬롯
+  # {actionIndex} : 추가된 액션의 인덱스
+  # {argIndex}    : 추가된 액션인자의 인덱스
+  # {value}       : 추가된 값
+  ArgumentAdded_GENERAL: "&6{menu}@{slot}:{actionIndex} &a액션의 &6{argIndex} &a번에 인자를 추가하였습니다. &7( &6{value} &7)"
+
+
+  # (일반) 액션을 추가한 경우
+  # {menu}       : 추가된 메뉴의 ID
+  # {slot}       : 추가된 버튼의 슬롯
+  # {actionType} : 추가된 액션의 타입
+  # {value}      : 추가된 값
+  ActionAdded_GENERAL: "&6{menu}@{slot} &a버튼에 &6{actionType} &a액션을 추가하였습니다. &7( &6{value} &7)"
+
+
+  # 애드온 목록을 확인한 경우
+  # {expansion}       : 애드온 목록 (일반액션)
+  # {globalExpansion} : 애드온 목록 (글로벌액션)
+  expansionList: "&a일반액션 &7: &r{expansion} &d| &a글로벌액션 &7: &r{globalExpansion}"
 
 errorMessages:
   # 명령어를 실행할 권한이 없는 경우
@@ -20,3 +111,33 @@ errorMessages:
 
   # 콘솔에서 명령어를 실행한 경우
   wrongPlatform: "&c콘솔에서 사용 불가능한 명령어입니다."
+
+
+  # 메뉴 ID를 입력하지 않은 경우
+  noMenuId: "&c메뉴 ID를 입력해주세요."
+
+  # 메뉴 줄 수를 입력하지 않은 경우
+  noMenuLine: "&c메뉴 줄 수를 입력해주세요."
+
+  # 메뉴 제목을 입력하지 않은 경우
+  noMenuTitle: "&c메뉴 제목을 입력해주세요."
+
+
+  # 메뉴 ID를 잘못 입력한 경우
+  wrongMenuId: "&c메뉴 ID는 영어, 한글, 숫자, _ 만 사용할 수 있습니다."
+
+  # 메뉴 줄 수가 숫자가 아닌 경우
+  wrongMenuLine: "&c메뉴 줄 수는 1 ~ 6 사이의 숫자여야 합니다."
+
+
+  # 입력값이 숫자가 아닌 경우
+  invalidNumberInput: "&c입력값이 숫자가 아니거나 잘못 되었습니다. 다시 시도해주세요."
+
+  # 입력한 액션타입이 존재하지 않는 경우
+  invalidActionType: "&c입력한 액션타입이 존재하지 않습니다. 다시 시도해주세요."
+
+  # 해당 ID의 메뉴가 존재하지 않는 경우
+  menuNotFound: "&c해당 ID의 메뉴가 존재하지 않습니다."
+
+  # 해당 ID의 메뉴가 이미 존재하는 경우
+  menuAlreadyExists: "&c해당 ID의 메뉴가 이미 존재합니다."

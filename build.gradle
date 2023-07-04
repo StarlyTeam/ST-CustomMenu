@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'net.starly.boilerplate' // TODO: 수정
+group 'net.starly.custommenu'
 version '1.0'
 
 repositories {
@@ -16,11 +16,12 @@ repositories {
 dependencies {
     //JAVA DEPENDENCIES
     compileOnly "org.jetbrains:annotations:23.0.0"
-    compileOnly "org.projectlombok:lombok:1.18.24"
-    annotationProcessor "org.projectlombok:lombok:1.18.24"
+    compileOnly "org.projectlombok:lombok:1.18.26"
+    annotationProcessor "org.projectlombok:lombok:1.18.26"
 
     //BUKKIT DEPENDENCIES
     compileOnly "org.spigotmc:spigot-api:R0.1:1.12.2"
+    compileOnly "net.md-5:bungeecord-chat:R0.1:1.12"
 
     // OTHER DEPENDENCIES
     compileOnly "net.starly.core:ST-Core:1.8.1"
