@@ -76,6 +76,12 @@ public class SettingCenter extends InventoryListenerBase {
             case 14: {
                 Consumer<AsyncPlayerChatEvent> callback = (chatEvent) -> {
                     menu.setTitle(ChatColor.translateAlternateColorCodes('&', chatEvent.getMessage()));
+                    MessageContent.getInstance().getMessageAfterPrefix(MessageType.NORMAL, "menuTitleSet")
+                            .map(value -> value
+                                    .replace("{menu}", menu.getId())
+                                    .replace("{title}", menu.getTitle()))
+                            .ifPresent(chatEvent.getPlayer()::sendMessage);
+
                     openInventory(player, menu);
                 };
                 ChatInputDispatcher.attachConsumer(player.getUniqueId(), callback);
@@ -122,6 +128,7 @@ public class SettingCenter extends InventoryListenerBase {
                                 .map(value -> value
                                         .replace("{menu}", menu.getId()))
                                 .ifPresent(player::sendMessage);
+
                         player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_DEATH, 1f, 1f);
                     }
 
@@ -129,7 +136,9 @@ public class SettingCenter extends InventoryListenerBase {
                     public void onCancel() {
                         selected = true;
 
+                        player.closeInventory();
                         openInventory(player, menu);
+
                         player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1f, 1f);
                     }
 

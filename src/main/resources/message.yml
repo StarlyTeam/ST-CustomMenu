@@ -88,13 +88,17 @@ messages:
   # {value}       : 추가된 값
   ArgumentAdded_GENERAL: "&6{menu}@{slot}:{actionIndex} &a액션의 &6{argIndex} &a번에 인자를 추가하였습니다. &7( &6{value} &7)"
 
-
   # (일반) 액션을 추가한 경우
   # {menu}       : 추가된 메뉴의 ID
   # {slot}       : 추가된 버튼의 슬롯
   # {actionType} : 추가된 액션의 타입
   # {value}      : 추가된 값
   ActionAdded_GENERAL: "&6{menu}@{slot} &a버튼에 &6{actionType} &a액션을 추가하였습니다. &7( &6{value} &7)"
+
+  # 메뉴 제목을 설정한 경우
+  # {menu}  : 설정된 메뉴의 ID
+  # {title} : 설정된 제목
+  menuTitleSet: "&6{menu} &a메뉴의 제목을 &6{title} &a(으)로 설정하였습니다."
 
 
   # 애드온 목록을 확인한 경우
