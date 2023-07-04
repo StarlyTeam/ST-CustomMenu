@@ -126,7 +126,7 @@ public class ActionDetailEditor extends InventoryListenerBase {
                                                 .replace("{slot}", String.valueOf(holder.getSlot() + 1))
                                                 .replace("{actionType}", holder.getActionType())
                                                 .replace("{actionIndex}", String.valueOf(actionIndex + 1))
-                                                .replace("{argIndex}", String.valueOf(argIndex))
+                                                .replace("{argIndex}", String.valueOf(argIndex + 1))
                                                 .replace("{value}", message))
                                         .ifPresent(player::sendMessage);
 
@@ -169,7 +169,7 @@ public class ActionDetailEditor extends InventoryListenerBase {
                                                     .replace("{slot}", String.valueOf(holder.getSlot() + 1))
                                                     .replace("{actionType}", holder.getActionType())
                                                     .replace("{actionIndex}", String.valueOf(actionIndex))
-                                                    .replace("{argIndex}", String.valueOf(argIndex))
+                                                    .replace("{argIndex}", String.valueOf(argIndex + 1))
                                                     .replace("{value}", message))
                                             .ifPresent(player::sendMessage);
 
@@ -196,7 +196,7 @@ public class ActionDetailEditor extends InventoryListenerBase {
                                             .replace("{slot}", String.valueOf(holder.getSlot() + 1))
                                             .replace("{actionType}", holder.getActionType())
                                             .replace("{actionIndex}", String.valueOf(actionIndex))
-                                            .replace("{argIndex}", String.valueOf(argIndex)))
+                                            .replace("{argIndex}", String.valueOf(argIndex + 1)))
                                     .ifPresent(player::sendMessage);
 
                             int currentPage = holder.getPaginationManager().getCurrentPage();
@@ -266,7 +266,7 @@ public class ActionDetailEditor extends InventoryListenerBase {
                                             .map(value -> value
                                                     .replace("{menu}", menu.getId())
                                                     .replace("{actionType}", holder.getActionType())
-                                                    .replace("{argIndex}", String.valueOf(argIndex))
+                                                    .replace("{argIndex}", String.valueOf(argIndex + 1))
                                                     .replace("{value}", message))
                                             .ifPresent(player::sendMessage);
 
@@ -291,7 +291,7 @@ public class ActionDetailEditor extends InventoryListenerBase {
                                     .map(value -> value
                                             .replace("{menu}", menu.getId())
                                             .replace("{actionType}", holder.getActionType())
-                                            .replace("{argIndex}", String.valueOf(argIndex)))
+                                            .replace("{argIndex}", String.valueOf(argIndex + 1)))
                                     .ifPresent(player::sendMessage);
 
                             int currentPage = holder.getPaginationManager().getCurrentPage();
