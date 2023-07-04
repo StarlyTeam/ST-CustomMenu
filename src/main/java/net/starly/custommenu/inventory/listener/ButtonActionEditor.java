@@ -4,6 +4,7 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.starly.custommenu.CustomMenu;
 import net.starly.custommenu.action.Action;
+import net.starly.custommenu.action.expansion.IExpansion;
 import net.starly.custommenu.action.expansion.general.ActionExpansion;
 import net.starly.custommenu.action.expansion.general.ActionExpansionRegistry;
 import net.starly.custommenu.dispatcher.ChatInputDispatcher;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class ButtonActionEditor extends InventoryListenerBase {
 
@@ -50,7 +52,7 @@ public class ButtonActionEditor extends InventoryListenerBase {
 
         Inventory inventory = event.getClickedInventory();
         if (inventory == null) return;
-        
+
         Player player = (Player) event.getWhoClicked();
         if (inventory == player.getInventory()) return;
 
@@ -65,16 +67,11 @@ public class ButtonActionEditor extends InventoryListenerBase {
                     .ifPresent(player::sendMessage);
 
             String prefix = messageContent.getPrefix().orElse("");
-            TextComponent component = new TextComponent(prefix);
             ActionExpansionRegistry expansionRegistry = ActionExpansionRegistry.getInstance();
-            expansionRegistry.getAllExpansion().forEach(expansion -> {
-                String actionType = expansion.getActionType();
-                TextComponent actionTypeComponent = new TextComponent("§r§e" + actionType + "§r§7, ");
-                actionTypeComponent.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, actionType));
-
-                component.addExtra(actionTypeComponent);
-            });
-            player.spigot().sendMessage(component);
+            player.sendMessage(prefix + "§e" + expansionRegistry.getAllExpansion().stream()
+                    .map(IExpansion::getActionType)
+                    .collect(Collectors.joining("§r§7, §e"))
+            );
 
 
             Consumer<AsyncPlayerChatEvent> listener = new Consumer<AsyncPlayerChatEvent>() {

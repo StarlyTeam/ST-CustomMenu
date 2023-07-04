@@ -70,7 +70,7 @@ public class MenuButtonEditor extends InventoryListenerBase {
     public void openInventory(Player player, Menu menu) {
         JavaPlugin plugin = CustomMenu.getInstance();
         InventoryHolder holder = new MenuInvHolder(menu.getId());
-        Inventory inventory = plugin.getServer().createInventory(holder, menu.getLine() * 9, menu.getTitle() + "§r [버튼 편집]");
+        Inventory inventory = plugin.getServer().createInventory(holder, menu.getLine() * 9, menu.getTitle() + "§r [버튼 관리]");
 
         menu.getButtons().forEach((slot, button) -> {
             if (button == null || button.getType() == Material.AIR) return;

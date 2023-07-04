@@ -23,6 +23,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MenuGlobalActionEditor extends InventoryListenerBase {
 
@@ -127,13 +128,14 @@ public class MenuGlobalActionEditor extends InventoryListenerBase {
             ItemStack itemStack = new ItemStack(expansion.getItemType());
             ItemMeta itemMeta = itemStack.getItemMeta();
             itemMeta.setDisplayName("§r" + expansion.getKoreanName());
-            itemMeta.setLore(Arrays.asList(
-                    "§r§e• §r" + expansion.getDescription(),
+            List<String> lore = Arrays.stream(expansion.getDescription().split("\n")).map(line -> "§r§e• §f" + line).collect(Collectors.toList());
+            lore.addAll(Arrays.asList(
                     "",
                     "§r§e• §7활성화 여부 : " + (menu.getGlobalAction(expansion.getActionType()).isEnabled() ? "§a§n여" : "§c§n부"),
                     "§r§e• §6좌클릭 §7: §a§n세부 설정",
                     "§r§e• §6우클릭 §7: §a§n활성 상태 변경"
             ));
+            itemMeta.setLore(lore);
             itemStack.setItemMeta(itemMeta);
 
             itemStack = NBTUtil.setNBT(itemStack, "CUSTOMMENU_ACTIONTYPE", expansion.getActionType());

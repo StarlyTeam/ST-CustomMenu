@@ -42,7 +42,7 @@ public class CommandActionExpansion extends ActionExpansion {
 
     @Override
     public String getDescription() {
-        return "§e명령어를 실행합니다. §7(사용법 : &6명령어 <콘솔/플레이어> <명령어...>&7)";
+        return "§6명령어를 실행합니다.\n{player}로 실행한 플레이어의 이름을 입력할 수 있습니다.\n사용법 : &6명령어 <콘솔|플레이어> <명령어...>&7";
     }
 
     @Override
