@@ -1,5 +1,6 @@
 package net.starly.custommenu.command.sub.impl;
 
+import net.starly.custommenu.CustomMenu;
 import net.starly.custommenu.command.sub.SubCommand;
 import net.starly.custommenu.inventory.listener.MenuGUI;
 import net.starly.custommenu.menu.Menu;
@@ -8,6 +9,7 @@ import net.starly.custommenu.message.MessageType;
 import net.starly.custommenu.repo.MenuRepository;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.Nullable;
 
 public class OpenCommand implements SubCommand {
@@ -23,11 +25,34 @@ public class OpenCommand implements SubCommand {
         }
         Player player = (Player) sender;
 
+        Player target;
         if (args.length == 0) {
             messageContent.getMessageAfterPrefix(MessageType.ERROR, "noMenuId")
                     .ifPresent(player::sendMessage);
             return false;
-        } else if (args.length != 1) {
+        } else if (args.length == 1) {
+            if (!player.hasPermission("starly.custommenu.open.self")) {
+                messageContent.getMessageAfterPrefix(MessageType.ERROR, "noPermission")
+                        .ifPresent(player::sendMessage);
+                return false;
+            }
+
+            target = player;
+        } else if (args.length == 2) {
+            if (!player.hasPermission("starly.custommenu.open.other")) {
+                messageContent.getMessageAfterPrefix(MessageType.ERROR, "noPermission")
+                        .ifPresent(player::sendMessage);
+                return false;
+            }
+
+            JavaPlugin plugin = CustomMenu.getInstance();
+            target = plugin.getServer().getPlayerExact(args[1]);
+            if (target == null) {
+                messageContent.getMessageAfterPrefix(MessageType.ERROR, "playerNotFound")
+                        .ifPresent(player::sendMessage);
+                return false;
+            }
+        } else {
             messageContent.getMessageAfterPrefix(MessageType.ERROR, "wrongCommand")
                     .ifPresent(player::sendMessage);
             return false;
@@ -43,12 +68,12 @@ public class OpenCommand implements SubCommand {
             return false;
         }
 
-        MenuGUI.getInstance().openInventory(player, menu);
+        MenuGUI.getInstance().openInventory(target, menu);
         return true;
     }
 
     @Override
     public @Nullable String getPermission() {
-        return "starly.custommenu.open";
+        return null;
     }
 }
