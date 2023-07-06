@@ -104,7 +104,7 @@ public class ActionDetailEditor extends InventoryListenerBase {
                     holder -> openInventory(player, menu, holder.getActionType(), holder.getPaginationManager().getCurrentPage())
             );
         } else if (!(slot >= 20 && slot <= 25) && event.getCurrentItem() != null) {
-            executeConsumer(rawHolder,
+            executeConsumer(rawHolder, // 헉 ㅎㅎ
                     holder -> {
                         int actionIndex = holder.getActionIndex();
                         int argIndex = (holder.getPaginationManager().getCurrentPage() - 1) * 18 + slot;
