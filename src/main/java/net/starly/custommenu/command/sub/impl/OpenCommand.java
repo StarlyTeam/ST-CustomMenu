@@ -31,7 +31,7 @@ public class OpenCommand implements SubCommand {
                     .ifPresent(player::sendMessage);
             return false;
         } else if (args.length == 1) {
-            if (!player.hasPermission("starly.custommenu.open.self")) {
+            if (!player.hasPermission("starly.custommenu.open." + args[0] + ".self")) {
                 messageContent.getMessageAfterPrefix(MessageType.ERROR, "noPermission")
                         .ifPresent(player::sendMessage);
                 return false;
@@ -39,7 +39,7 @@ public class OpenCommand implements SubCommand {
 
             target = player;
         } else if (args.length == 2) {
-            if (!player.hasPermission("starly.custommenu.open.other")) {
+            if (!player.hasPermission("starly.custommenu.open." + args[0] + ".other")) {
                 messageContent.getMessageAfterPrefix(MessageType.ERROR, "noPermission")
                         .ifPresent(player::sendMessage);
                 return false;

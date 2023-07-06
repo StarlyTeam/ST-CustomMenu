@@ -47,6 +47,6 @@ public class ExpansionCommandExecutor implements SubCommand {
 
     @Override
     public String getPermission() {
-        return "starly.custommenu.expansion";
+        return null;
     }
 }
