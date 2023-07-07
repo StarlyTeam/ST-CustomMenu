@@ -54,11 +54,16 @@ public class MenuGUI extends InventoryListenerBase {
         EventUtil.callMenuListeners(new MenuButtonClickEvent(event.getView(), null, event.getSlot(), event.getClick(), event.getAction(), menu));
 
         if (event.getCurrentItem() != null) {
-            MenuButton button = menu.getButton(event.getSlot());
+            unregisterListener(player.getUniqueId());
 
+            MenuButton button = menu.getButton(event.getSlot());
             List<Action> actionList = button.getActionList();
             for (int actionIndex = 0; actionIndex < actionList.size(); actionIndex++) {
                 ActionExpansionRegistry.executeAction(actionList.get(actionIndex), menu, event.getSlot(), actionIndex, player, event.getClick());
+            }
+
+            if (inventory.getViewers().contains(player)) {
+                registerListener(player.getUniqueId());
             }
         }
     }

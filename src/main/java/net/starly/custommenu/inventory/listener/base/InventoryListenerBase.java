@@ -18,6 +18,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,8 +35,8 @@ public abstract class InventoryListenerBase {
 
 
     protected InventoryView openInventoryAndRegisterListener(Player player, Inventory inventory) {
-        clickListenerMap.put(player.getUniqueId(), registerClickListener(player.getUniqueId()));
-        closeListenerMap.put(player.getUniqueId(), registerCloseEvent(player.getUniqueId()));
+        player.closeInventory();
+        registerListener(player.getUniqueId());
         return player.openInventory(inventory);
     }
 
@@ -72,6 +73,12 @@ public abstract class InventoryListenerBase {
         }, CustomMenu.getInstance());
 
         return listener;
+    }
+
+
+    protected void registerListener(UUID uniqueId) {
+        clickListenerMap.put(uniqueId, registerClickListener(uniqueId));
+        closeListenerMap.put(uniqueId, registerCloseEvent(uniqueId));
     }
 
     protected void unregisterListener(UUID uniqueId) {

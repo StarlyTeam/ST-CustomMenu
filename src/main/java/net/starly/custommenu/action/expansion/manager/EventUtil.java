@@ -22,7 +22,11 @@ public class EventUtil {
 
         IExpansion expansion = expansionRegistry.isExpansionRegistered(actionType) ?
                 expansionRegistry.getExpansion(actionType) :
-                globalExpansionRegistry.getExpansion(actionType);
+                (
+                        globalExpansionRegistry.isExpansionRegistered(actionType) ?
+                                globalExpansionRegistry.getExpansion(actionType) :
+                                null
+                );
         if (expansion == null) throw new IllegalArgumentException("expansion is null");
 
         boolean success = expansion.onExecute(event);
