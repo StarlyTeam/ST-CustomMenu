@@ -18,30 +18,29 @@ public class OpenCommand implements SubCommand {
     public boolean execute(CommandSender sender, String[] args) {
         MessageContent messageContent = MessageContent.getInstance();
 
-        if (!(sender instanceof Player)) {
-            messageContent.getMessageAfterPrefix(MessageType.ERROR, "wrongPlatform")
-                    .ifPresent(sender::sendMessage);
-            return false;
-        }
-        Player player = (Player) sender;
-
         Player target;
         if (args.length == 0) {
             messageContent.getMessageAfterPrefix(MessageType.ERROR, "noMenuId")
-                    .ifPresent(player::sendMessage);
+                    .ifPresent(sender::sendMessage);
             return false;
         } else if (args.length == 1) {
-            if (!player.hasPermission("starly.custommenu.open." + args[0] + ".self")) {
-                messageContent.getMessageAfterPrefix(MessageType.ERROR, "noPermission")
-                        .ifPresent(player::sendMessage);
+            if (!(sender instanceof Player)) {
+                messageContent.getMessageAfterPrefix(MessageType.ERROR, "wrongPlatform")
+                        .ifPresent(sender::sendMessage);
                 return false;
             }
 
-            target = player;
-        } else if (args.length == 2) {
-            if (!player.hasPermission("starly.custommenu.open." + args[0] + ".other")) {
+            if (!sender.hasPermission("starly.custommenu.open." + args[0] + ".self")) {
                 messageContent.getMessageAfterPrefix(MessageType.ERROR, "noPermission")
-                        .ifPresent(player::sendMessage);
+                        .ifPresent(sender::sendMessage);
+                return false;
+            }
+
+            target = (Player) sender;
+        } else if (args.length == 2) {
+            if (!sender.hasPermission("starly.custommenu.open." + args[0] + ".other")) {
+                messageContent.getMessageAfterPrefix(MessageType.ERROR, "noPermission")
+                        .ifPresent(sender::sendMessage);
                 return false;
             }
 
@@ -49,12 +48,12 @@ public class OpenCommand implements SubCommand {
             target = plugin.getServer().getPlayerExact(args[1]);
             if (target == null) {
                 messageContent.getMessageAfterPrefix(MessageType.ERROR, "playerNotFound")
-                        .ifPresent(player::sendMessage);
+                        .ifPresent(sender::sendMessage);
                 return false;
             }
         } else {
             messageContent.getMessageAfterPrefix(MessageType.ERROR, "wrongCommand")
-                    .ifPresent(player::sendMessage);
+                    .ifPresent(sender::sendMessage);
             return false;
         }
 
@@ -64,7 +63,7 @@ public class OpenCommand implements SubCommand {
         Menu menu = menuRepository.getMenu(menuId);
         if (menu == null) {
             messageContent.getMessageAfterPrefix(MessageType.ERROR, "menuNotFound")
-                    .ifPresent(player::sendMessage);
+                    .ifPresent(sender::sendMessage);
             return false;
         }
 
