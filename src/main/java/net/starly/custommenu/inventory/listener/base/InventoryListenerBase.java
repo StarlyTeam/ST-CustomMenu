@@ -1,8 +1,8 @@
 package net.starly.custommenu.inventory.listener.base;
 
 import net.starly.custommenu.CustomMenu;
-import net.starly.custommenu.action.Action;
-import net.starly.custommenu.action.global.GlobalAction;
+import net.starly.custommenu.action.data.Action;
+import net.starly.custommenu.action.data.GlobalAction;
 import net.starly.custommenu.inventory.holder.MenuHolder;
 import net.starly.custommenu.inventory.holder.impl.ActionInvHolder;
 import net.starly.custommenu.inventory.holder.impl.ActionTypeInvHolder;
@@ -18,7 +18,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,6 +1,6 @@
 package net.starly.custommenu.action.service;
 
-import net.starly.custommenu.action.Action;
+import net.starly.custommenu.action.data.Action;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;

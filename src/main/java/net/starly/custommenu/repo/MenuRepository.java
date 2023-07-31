@@ -1,9 +1,9 @@
 package net.starly.custommenu.repo;
 
 import net.starly.custommenu.CustomMenu;
-import net.starly.custommenu.action.Action;
-import net.starly.custommenu.action.global.GlobalAction;
-import net.starly.custommenu.button.MenuButton;
+import net.starly.custommenu.action.data.Action;
+import net.starly.custommenu.action.data.GlobalAction;
+import net.starly.custommenu.menu.button.MenuButton;
 import net.starly.custommenu.menu.Menu;
 import net.starly.custommenu.util.EncodeUtil;
 import org.bukkit.configuration.ConfigurationSection;

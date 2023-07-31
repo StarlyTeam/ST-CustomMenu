@@ -1,15 +1,18 @@
 package net.starly.custommenu.action.expansion.global;
 
-import net.starly.custommenu.action.expansion.IExpansion;
+import net.starly.custommenu.action.expansion.IActionExpansion;
+import net.starly.custommenu.action.expansion.event.GlobalActionExecuteEvent;
 import net.starly.custommenu.action.expansion.listener.MenuListener;
-import net.starly.custommenu.action.expansion.listener.MenuListenerRegistry;
-import net.starly.custommenu.action.global.GlobalAction;
+import net.starly.custommenu.action.expansion.listener.registry.MenuListenerRegistry;
+import net.starly.custommenu.action.data.GlobalAction;
 
 import java.util.List;
 
-public abstract class GlobalActionExpansion implements IExpansion {
+public abstract class GlobalActionExpansion implements IActionExpansion {
 
     public abstract GlobalAction parseAction(List<String> args);
+
+    public abstract boolean onExecute(GlobalActionExecuteEvent event);
 
     public static boolean registerExpansion(GlobalActionExpansion expansion) {
         GlobalActionExpansionRegistry expansionRegistry = GlobalActionExpansionRegistry.getInstance();

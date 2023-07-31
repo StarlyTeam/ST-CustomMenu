@@ -1,13 +1,15 @@
 package net.starly.custommenu.action.service;
 
 import net.starly.custommenu.CustomMenu;
-import net.starly.custommenu.action.Action;
-import net.starly.custommenu.action.expansion.IExecuteEvent;
+import net.starly.custommenu.action.data.Action;
+import net.starly.custommenu.action.expansion.event.ActionExecuteEvent;
 import net.starly.custommenu.action.expansion.general.ActionExpansion;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CommandActionExpansion extends ActionExpansion {
@@ -41,8 +43,8 @@ public class CommandActionExpansion extends ActionExpansion {
     }
 
     @Override
-    public String getDescription() {
-        return "§6명령어를 실행합니다.\n{player}로 실행한 플레이어의 이름을 입력할 수 있습니다.\n사용법 : &6명령어 <콘솔|플레이어> <명령어...>&7";
+    public List<String> getDescriptionLore() {
+        return Arrays.asList("§6명령어를 실행합니다.", "§7{player}로 실행한 플레이어의 이름을 입력할 수 있습니다.", "§7명령어 <콘솔|플레이어|오피> <명령어>...");
     }
 
     @Override
@@ -68,29 +70,49 @@ public class CommandActionExpansion extends ActionExpansion {
     }
 
     @Override
-    public boolean onExecute(IExecuteEvent event) {
+    public boolean onExecute(ActionExecuteEvent event) {
         JavaPlugin plugin = CustomMenu.getInstance();
 
         Action action = event.getAction();
         List<String> args = action.getArgs();
-        if (args.size() == 0) {
-            plugin.getLogger().warning("명령어 실행타입을 선언해주세요. <콘솔/플레이어>");
+        if (args.isEmpty()) {
+            plugin.getLogger().warning("명령어 실행타입을 선언해주세요.");
             return false;
         }
 
         String performType = args.get(0);
         String command = String.join(" ", args.subList(1, args.size()))
                 .replace("{player}", event.getPlayer().getName());
-        if (performType.equals("콘솔")) {
-            plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), command);
-            return true;
-        } else if (performType.equals("플레이어")) {
-            Player player = event.getPlayer();
-            player.performCommand(command);
-            return true;
-        } else {
-            plugin.getLogger().warning("명령어 실행타입을 다시 확인해주세요. <콘솔/플레이어> :: " + performType);
-            return false;
+
+        switch (performType) {
+            case "콘솔": {
+                plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), command);
+                return true;
+            }
+
+            case "플레이어": {
+                Player player = event.getPlayer();
+                player.performCommand(command);
+                return true;
+            }
+
+            case "오피": {
+                Player player = event.getPlayer();
+                final boolean isOp = player.isOp();
+
+                try {
+                    player.setOp(true);
+                    player.performCommand(command);
+                } finally {
+                    player.setOp(isOp);
+                }
+                return true;
+            }
+
+            default: {
+                plugin.getLogger().warning("명령어 실행타입을 다시 확인해주세요. [예상된 값 : 콘솔, 플레이어, 오피] [입력된 값 : " + performType + "]");
+                return false;
+            }
         }
     }
 }

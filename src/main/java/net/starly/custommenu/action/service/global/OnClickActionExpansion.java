@@ -1,21 +1,21 @@
 package net.starly.custommenu.action.service.global;
 
 import net.starly.custommenu.CustomMenu;
-import net.starly.custommenu.action.expansion.IExecuteEvent;
 import net.starly.custommenu.action.expansion.event.GlobalActionExecuteEvent;
 import net.starly.custommenu.action.expansion.global.GlobalActionExpansion;
 import net.starly.custommenu.action.expansion.global.GlobalActionExpansionRegistry;
 import net.starly.custommenu.action.expansion.listener.MenuListener;
-import net.starly.custommenu.action.expansion.manager.EventUtil;
-import net.starly.custommenu.action.global.GlobalAction;
-import net.starly.custommenu.event.MenuButtonClickEvent;
-import net.starly.custommenu.event.MenuCloseEvent;
-import net.starly.custommenu.event.MenuOpenEvent;
+import net.starly.custommenu.util.CallUtil;
+import net.starly.custommenu.action.data.GlobalAction;
+import net.starly.custommenu.action.expansion.listener.event.MenuButtonClickEvent;
+import net.starly.custommenu.action.expansion.listener.event.MenuCloseEvent;
+import net.starly.custommenu.action.expansion.listener.event.MenuOpenEvent;
 import net.starly.custommenu.menu.Menu;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class OnClickActionExpansion extends GlobalActionExpansion {
@@ -31,7 +31,6 @@ public class OnClickActionExpansion extends GlobalActionExpansion {
             plugin.getLogger().warning("메뉴 리스너 등록에 실패했습니다. [글로벌@" + getActionType() + "]");
         }
     }
-
 
 
     @Override
@@ -62,8 +61,8 @@ public class OnClickActionExpansion extends GlobalActionExpansion {
     }
 
     @Override
-    public String getDescription() {
-        return "§f버튼을 클릭했을 때 실행되는 액션입니다.";
+    public List<String> getDescriptionLore() {
+        return Arrays.asList("§6버튼을 클릭했을 때 실행되는 액션입니다.");
     }
 
     @Override
@@ -77,7 +76,7 @@ public class OnClickActionExpansion extends GlobalActionExpansion {
     }
 
     @Override
-    public boolean onExecute(IExecuteEvent event) {
+    public boolean onExecute(GlobalActionExecuteEvent event) {
         return GlobalActionExpansionRegistry.executeAllAction(event);
     }
 
@@ -91,7 +90,7 @@ public class OnClickActionExpansion extends GlobalActionExpansion {
 
             if (action.isEnabled()) {
                 GlobalActionExecuteEvent executeEvent = new GlobalActionExecuteEvent(menu, getActionType(), action, (Player) event.getWhoClicked(), event.getClick());
-                EventUtil.callExecuteEvent(executeEvent);
+                CallUtil.callExecuteEvent(executeEvent);
             }
         }
 

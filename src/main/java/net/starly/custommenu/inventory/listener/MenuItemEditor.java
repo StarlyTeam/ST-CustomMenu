@@ -1,7 +1,7 @@
 package net.starly.custommenu.inventory.listener;
 
 import net.starly.custommenu.CustomMenu;
-import net.starly.custommenu.button.MenuButton;
+import net.starly.custommenu.menu.button.MenuButton;
 import net.starly.custommenu.inventory.holder.impl.MenuInvHolder;
 import net.starly.custommenu.inventory.listener.base.InventoryListenerBase;
 import net.starly.custommenu.menu.Menu;

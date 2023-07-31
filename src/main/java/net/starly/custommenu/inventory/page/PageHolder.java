@@ -8,6 +8,8 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.List;
+
 @Getter
 @AllArgsConstructor
 public class PageHolder implements InventoryHolder {
@@ -21,14 +23,15 @@ public class PageHolder implements InventoryHolder {
     @Override
     @Deprecated
     public Inventory getInventory() {
-        throw new UnsupportedOperationException("Not supported");
+        throw new UnsupportedOperationException("지원되지 않는 메소드 호출 입니다.");
     }
 
     public Inventory getInventory(Inventory baseInventory) {
         SinglePage currentPage = paginationManager.getCurrentPageData();
+        List<ItemStack> items = currentPage.getItems();
 
-        for (int i = 0; i < currentPage.getItems().size(); i++) {
-            baseInventory.setItem(i, currentPage.getItems().get(i));
+        for (int i = 0; i < items.size(); i++) {
+            baseInventory.setItem(i, items.get(i));
         }
 
         {

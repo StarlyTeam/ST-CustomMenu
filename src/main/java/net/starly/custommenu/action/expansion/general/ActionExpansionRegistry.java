@@ -1,12 +1,9 @@
 package net.starly.custommenu.action.expansion.general;
 
 import net.starly.custommenu.CustomMenu;
-import net.starly.custommenu.action.Action;
-import net.starly.custommenu.action.expansion.IExpansion;
-import net.starly.custommenu.action.expansion.IExpansionRegistry;
+import net.starly.custommenu.action.data.Action;
 import net.starly.custommenu.action.expansion.event.ActionExecuteEvent;
-import net.starly.custommenu.action.expansion.manager.EventUtil;
-import net.starly.custommenu.action.global.GlobalAction;
+import net.starly.custommenu.util.CallUtil;
 import net.starly.custommenu.menu.Menu;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -17,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ActionExpansionRegistry implements IExpansionRegistry {
+public class ActionExpansionRegistry {
 
     private static ActionExpansionRegistry instance;
 
@@ -29,45 +26,37 @@ public class ActionExpansionRegistry implements IExpansionRegistry {
     private ActionExpansionRegistry() {}
 
 
-    private final Map<String, IExpansion> expansionMap = new HashMap<>();
+    private final Map<String, ActionExpansion> expansionMap = new HashMap<>();
 
-    @Override
-    public void registerExpansion(IExpansion expansion) {
+    public void registerExpansion(ActionExpansion expansion) {
         expansionMap.put(expansion.getActionType(), expansion);
     }
 
-    @Override
-    public IExpansion getExpansion(String type) {
+    public ActionExpansion getExpansion(String type) {
         return expansionMap.get(type);
     }
 
-    @Override
-    public List<IExpansion> getAllExpansion() {
+    public List<ActionExpansion> getAllExpansion() {
         return new ArrayList<>(expansionMap.values());
     }
 
-    @Override
     public boolean isExpansionRegistered(String type) {
         return expansionMap.containsKey(type);
     }
 
-    @Override
     public void unregisterExpansion(String type) {
         expansionMap.remove(type);
     }
 
-    @Override
     public void unregisterAll() {
         expansionMap.clear();
     }
 
 
     public static void executeAction(Action action, Menu menu, int slot, int actionIndex, Player player, ClickType clickType) {
-        if (action instanceof GlobalAction) throw new IllegalArgumentException("GlobalAction is not supported");
-
         try {
             ActionExecuteEvent executeEvent = new ActionExecuteEvent(menu, slot, actionIndex, action, player, clickType);
-            EventUtil.callExecuteEvent(executeEvent);
+            CallUtil.callExecuteEvent(executeEvent);
         } catch (Exception ex) {
             ex.printStackTrace();
 

@@ -38,6 +38,9 @@ messages:
   # 액션인자 인덱스를 변경하려는 경우
   enterNewArgIndex: "&6액션인자를 이동할 인덱스를 입력해주세요. &7(취소하려면 '-'를 입력)"
 
+  # 액션인자를 입력해주세요.
+  enterArgs: "&6액션인자를 입력해주세요. &7(취소하려면 '-'를 입력)"
+
   # 입력을 취소한 경우
   inputCancelled: "&c입력을 취소하였습니다."
 
@@ -54,9 +57,8 @@ messages:
   # {slot}       : 설정된 버튼의 슬롯
   # {actionType} : 설정된 액션의 타입
   # {actionIndex}: 설정된 액션의 인덱스
-  # {argIndex}   : 설정된 액션인자의 인덱스
   # {value}      : 설정된 값
-  ArgumentSet_GENERAL: "&6{menu}@{slot}:{actionIndex} &a액션의 &6{argIndex} &a번 인자의 값을 &6{value} &a(으)로 설정하였습니다."
+  ArgumentSet_GENERAL: "&6{menu}@{slot}:{actionIndex} &a액션의 인자의 값을 &6{value} &a(으)로 설정하였습니다."
 
   # (글로벌) 액션인자를 설정한 경우
   # {menu}       : 설정된 메뉴의 ID
@@ -65,35 +67,17 @@ messages:
   # {value}      : 설정된 값
   ArgumentIndexSet_GLOBAL: "&6{menu}@{actionType} &a액션의 &6{argIndex} &a번 인자의 값을 &6{value} &a(으)로 설정하였습니다."
 
-  # (일반) 액션인자의 인덱스를 변경한 경우
-  # {menu}       : 설정된 메뉴의 ID
-  # {slot}       : 설정된 버튼의 슬롯
-  # {actionType} : 설정된 액션의 타입
-  # {actionIndex}: 설정된 액션의 인덱스
-  # {argIndex}   : 설정된 액션인자의 인덱스
-  # {value}      : 설정된 값
-  ArgumentIndexSet_GENERAL: "&6{menu}@{slot}:{actionIndex} &a액션의 &6{argIndex} &a번 인자의 인덱스를 &6{value} &a(으)로 설정하였습니다."
-
   # (글로벌) 액션인자를 삭제한 경우
   # {menu}       : 삭제된 메뉴의 ID
   # {actionType} : 삭제된 액션의 타입
   # {argIndex}   : 삭제된 액션인자의 인덱스
   ArgumentRemoved_GLOBAL: "&6{menu}@{actionType} &a액션의 &6{argIndex} &a번 인자를 삭제하였습니다."
 
-  # (일반) 액션인자를 추가한 경우
-  # {menu}        : 추가된 메뉴의 ID
-  # {slot}        : 추가된 버튼의 슬롯
-  # {actionIndex} : 추가된 액션의 인덱스
-  # {argIndex}    : 추가된 액션인자의 인덱스
-  # {value}       : 추가된 값
-  ArgumentAdded_GENERAL: "&6{menu}@{slot}:{actionIndex} &a액션의 &6{argIndex} &a번에 인자를 추가하였습니다. &7( &6{value} &7)"
-
   # (일반) 액션을 추가한 경우
   # {menu}       : 추가된 메뉴의 ID
   # {slot}       : 추가된 버튼의 슬롯
   # {actionType} : 추가된 액션의 타입
-  # {value}      : 추가된 값
-  ActionAdded_GENERAL: "&6{menu}@{slot} &a버튼에 &6{actionType} &a액션을 추가하였습니다. &7( &6{value} &7)"
+  ActionAdded_GENERAL: "&6{menu}@{slot} &a버튼에 &6{actionType} &a액션을 추가하였습니다."
 
   # 메뉴 제목을 설정한 경우
   # {menu}  : 설정된 메뉴의 ID

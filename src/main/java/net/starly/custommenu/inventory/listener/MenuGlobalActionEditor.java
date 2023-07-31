@@ -1,10 +1,9 @@
 package net.starly.custommenu.inventory.listener;
 
 import net.starly.custommenu.CustomMenu;
-import net.starly.custommenu.action.expansion.IExpansion;
 import net.starly.custommenu.action.expansion.global.GlobalActionExpansion;
 import net.starly.custommenu.action.expansion.global.GlobalActionExpansionRegistry;
-import net.starly.custommenu.action.global.GlobalAction;
+import net.starly.custommenu.action.data.GlobalAction;
 import net.starly.custommenu.inventory.holder.impl.MenuInvHolder;
 import net.starly.custommenu.inventory.listener.base.InventoryListenerBase;
 import net.starly.custommenu.menu.Menu;
@@ -67,7 +66,7 @@ public class MenuGlobalActionEditor extends InventoryListenerBase {
         if (clickType == ClickType.LEFT) {
             unregisterListener(player.getUniqueId());
             player.closeInventory();
-            ActionDetailEditor.getInstance().openInventory(player, menu, actionType, 1);
+            GlobalActionDetailEditor.getInstance().openInventory(player, menu, actionType, 1);
         } else if (clickType == ClickType.RIGHT) {
             action.setEnabled(!action.isEnabled());
             updateInventory(inventory, menu);
@@ -120,15 +119,16 @@ public class MenuGlobalActionEditor extends InventoryListenerBase {
         }
 
         GlobalActionExpansionRegistry expansionRegistry = GlobalActionExpansionRegistry.getInstance();
-        List<IExpansion> expansionList = expansionRegistry.getAllExpansion();
+        List<GlobalActionExpansion> expansionList = expansionRegistry.getAllExpansion();
         for (int index = 0; index < expansionList.size(); index++) {
-            GlobalActionExpansion expansion = (GlobalActionExpansion) expansionList.get(index);
+            GlobalActionExpansion expansion = expansionList.get(index);
 
 
             ItemStack itemStack = new ItemStack(expansion.getItemType());
             ItemMeta itemMeta = itemStack.getItemMeta();
             itemMeta.setDisplayName("§r" + expansion.getKoreanName());
-            List<String> lore = Arrays.stream(expansion.getDescription().split("\n")).map(line -> "§r§e• §f" + line).collect(Collectors.toList());
+            List<String> lore = expansion.getDescriptionLore().stream()
+                    .map(line -> "§r§e• §f" + line).collect(Collectors.toList());
             lore.addAll(Arrays.asList(
                     "",
                     "§r§e• §7활성화 여부 : " + (menu.getGlobalAction(expansion.getActionType()).isEnabled() ? "§a§n여" : "§c§n부"),
@@ -137,9 +137,7 @@ public class MenuGlobalActionEditor extends InventoryListenerBase {
             ));
             itemMeta.setLore(lore);
             itemStack.setItemMeta(itemMeta);
-
             itemStack = NBTUtil.setNBT(itemStack, "CUSTOMMENU_ACTIONTYPE", expansion.getActionType());
-
             inventory.setItem(index, itemStack);
         }
     }

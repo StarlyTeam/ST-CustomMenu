@@ -1,4 +1,4 @@
-package net.starly.custommenu.event;
+package net.starly.custommenu.action.expansion.listener.event;
 
 import lombok.Getter;
 import net.starly.custommenu.menu.Menu;
@@ -7,7 +7,6 @@ import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.InventoryView;
-import org.jetbrains.annotations.NotNull;
 
 public class MenuButtonClickEvent extends InventoryClickEvent {
 

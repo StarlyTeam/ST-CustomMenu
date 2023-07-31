@@ -1,12 +1,11 @@
 package net.starly.custommenu.inventory.listener;
 
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.TextComponent;
 import net.starly.custommenu.CustomMenu;
-import net.starly.custommenu.action.Action;
-import net.starly.custommenu.action.expansion.IExpansion;
+import net.starly.custommenu.action.data.Action;
+import net.starly.custommenu.action.expansion.IActionExpansion;
 import net.starly.custommenu.action.expansion.general.ActionExpansion;
 import net.starly.custommenu.action.expansion.general.ActionExpansionRegistry;
+import net.starly.custommenu.menu.button.MenuButton;
 import net.starly.custommenu.dispatcher.ChatInputDispatcher;
 import net.starly.custommenu.inventory.holder.impl.ButtonInvHolder;
 import net.starly.custommenu.inventory.listener.base.InventoryListenerBase;
@@ -62,26 +61,23 @@ public class ButtonActionEditor extends InventoryListenerBase {
         int slot = event.getSlot();
 
         if (slot == 49) {
+            player.performCommand("st-custommenu:메뉴 애드온 목록");
+
             MessageContent messageContent = MessageContent.getInstance();
             messageContent.getMessageAfterPrefix(MessageType.NORMAL, "enterActionType")
                     .ifPresent(player::sendMessage);
-
-            String prefix = messageContent.getPrefix().orElse("");
-            ActionExpansionRegistry expansionRegistry = ActionExpansionRegistry.getInstance();
-            player.sendMessage(prefix + "§e" + expansionRegistry.getAllExpansion().stream()
-                    .map(IExpansion::getActionType)
-                    .collect(Collectors.joining("§r§7, §e"))
-            );
-
 
             Consumer<AsyncPlayerChatEvent> listener = new Consumer<AsyncPlayerChatEvent>() {
 
                 @Override
                 public void accept(AsyncPlayerChatEvent chatEvent) {
                     String message = chatEvent.getMessage();
-                    ActionExpansion expansion = (ActionExpansion) expansionRegistry.getExpansion(message);
+
+                    ActionExpansionRegistry expansionRegistry = ActionExpansionRegistry.getInstance();
+                    ActionExpansion expansion = expansionRegistry.getExpansion(message);
                     if (expansion == null) {
                         tryAgain();
+                        return;
                     }
 
                     int buttonSlot = holder.getSlot();
@@ -92,8 +88,7 @@ public class ButtonActionEditor extends InventoryListenerBase {
                             .map(value -> value
                                     .replace("{menu}", menu.getId())
                                     .replace("{slot}", String.valueOf(buttonSlot + 1))
-                                    .replace("{actionType}", message)
-                                    .replace("{value}", message))
+                                    .replace("{actionType}", message))
                             .ifPresent(player::sendMessage);
 
                     ButtonActionEditor.getInstance().openInventory(player, menu, buttonSlot, paginationManager.getCurrentPage());
@@ -132,15 +127,45 @@ public class ButtonActionEditor extends InventoryListenerBase {
             } else {
                 player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
             }
-        } else if (!(slot >= 47 && slot <= 52) && event.getCurrentItem() != null) {
+        } else if (!(47 <= slot && slot <= 52) && event.getCurrentItem() != null) {
             int actionIndex = (paginationManager.getCurrentPage() - 1) * 45 + slot;
 
+            MessageContent messageContent = MessageContent.getInstance();
+            MenuButton button = menu.getButton(holder.getSlot());
+            Action action = button.getActionList().get(actionIndex);
+            ActionExpansion expansion = action.getExpansion();
+
+            String prefix = messageContent.getPrefix().orElse("");
+            expansion.getDescriptionLore().forEach(message -> player.sendMessage(prefix + message));
+            messageContent.getMessageAfterPrefix(MessageType.NORMAL, "enterArgs")
+                    .ifPresent(player::sendMessage);
+
             if (event.getClick() == ClickType.LEFT) {
+                ChatInputDispatcher.attachConsumer(player.getUniqueId(), (chatEvent) -> {
+                    String message = chatEvent.getMessage();
+
+                    List<String> parsedArgs = Arrays.asList(message.split(" "));
+                    List<String> args = action.getArgs();
+                    args.clear();
+                    args.addAll(parsedArgs);
+
+
+                    messageContent.getMessageAfterPrefix(MessageType.NORMAL, "ArgumentSet_GENERAL")
+                            .map(value -> value
+                                    .replace("{menu}", menu.getId())
+                                    .replace("{slot}", String.valueOf(holder.getSlot() + 1))
+                                    .replace("{actionIndex}", String.valueOf(actionIndex))
+                                    .replace("{actionType}", action.getActionType())
+                                    .replace("{value}", message))
+                            .ifPresent(player::sendMessage);
+
+                    ButtonActionEditor.getInstance().openInventory(player, menu, holder.getSlot(), paginationManager.getCurrentPage());
+                });
+
                 unregisterListener(player.getUniqueId());
                 player.closeInventory();
-                ActionDetailEditor.getInstance().openInventory(player, menu, holder.getSlot(), actionIndex, 1);
-            } else if (event.getClick() == ClickType.RIGHT) {
-                menu.getButton(holder.getSlot()).getActionList().remove(actionIndex);
+            } else if (event.getClick() == ClickType.SHIFT_RIGHT) {
+                button.getActionList().remove(actionIndex);
 
                 unregisterListener(player.getUniqueId());
                 player.closeInventory();
@@ -161,7 +186,7 @@ public class ButtonActionEditor extends InventoryListenerBase {
     @Override
     @Deprecated
     public void openInventory(Player player, Menu menu) {
-        throw new UnsupportedOperationException("Not supported.");
+        throw new UnsupportedOperationException("사용할 수 없는 메소드가 호출되었습니다.");
     }
 
     public void openInventory(Player player, Menu menu, int slot, int page) {
@@ -172,18 +197,22 @@ public class ButtonActionEditor extends InventoryListenerBase {
 
         for (int index = 0; index < actionList.size(); index++) {
             Action action = actionList.get(index);
-            ActionExpansion expansion = (ActionExpansion) ActionExpansionRegistry.getInstance().getExpansion(action.getActionType());
+            ActionExpansion expansion = ActionExpansionRegistry.getInstance().getExpansion(action.getActionType());
 
             ItemStack itemStack = new ItemStack(expansion.getItemType());
             ItemMeta itemMeta = itemStack.getItemMeta();
             itemMeta.setDisplayName("§r§7" + (index + 1) + ". §r§e" + action.getActionType());
-            itemMeta.setLore(Arrays.asList(
+            List<String> lore = expansion.getDescriptionLore().stream()
+                    .map(line -> "§r§e• §f" + line).collect(Collectors.toList());
+            lore.addAll(Arrays.asList(
+                    "",
                     "§r§e• §7액션타입 : §6" + action.getActionType(),
                     "§r§e• §7액션인자 : §6" + String.join(" ", action.getArgs()),
                     "",
-                    "§r§e• §6좌클릭 §7: §a§n세부 설정",
-                    "§r§e• §6우클릭 §7: §c§n삭제"
+                    "§r§e• §6좌클릭 §7: §a§n액션인자 설정",
+                    "§r§e• §6Shift+우클릭 §7: §c§n삭제"
             ));
+            itemMeta.setLore(lore);
             itemStack.setItemMeta(itemMeta);
 
             actionItemList.add(itemStack);

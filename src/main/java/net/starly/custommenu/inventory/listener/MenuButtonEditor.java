@@ -51,7 +51,7 @@ public class MenuButtonEditor extends InventoryListenerBase {
             unregisterListener(player.getUniqueId());
             player.closeInventory();
             ButtonActionEditor.getInstance().openInventory(player, menu, slot, 1);
-        } else if (clickType == ClickType.RIGHT) {
+        } else if (clickType == ClickType.SHIFT_RIGHT) {
             menu.setButton(slot, null);
             inventory.setItem(slot, null);
         }
@@ -79,7 +79,7 @@ public class MenuButtonEditor extends InventoryListenerBase {
             ItemMeta itemMeta = itemStack.getItemMeta();
             itemMeta.setLore(itemMeta.hasLore() ? itemMeta.getLore() : Arrays.asList(
                     "§r§e• §6좌클릭 §7: §a§n액션 관리",
-                    "§r§e• §6우클릭 §7: §c§n삭제"
+                    "§r§e• §6Shift+우클릭 §7: §c§n삭제"
             ));
             itemStack.setItemMeta(itemMeta);
 

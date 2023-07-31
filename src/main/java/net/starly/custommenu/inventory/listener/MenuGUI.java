@@ -1,27 +1,23 @@
 package net.starly.custommenu.inventory.listener;
 
 import net.starly.custommenu.CustomMenu;
-import net.starly.custommenu.action.expansion.manager.EventUtil;
-import net.starly.custommenu.event.MenuButtonClickEvent;
-import net.starly.custommenu.event.MenuCloseEvent;
-import net.starly.custommenu.event.MenuOpenEvent;
+import net.starly.custommenu.util.CallUtil;
+import net.starly.custommenu.action.expansion.listener.event.MenuButtonClickEvent;
+import net.starly.custommenu.action.expansion.listener.event.MenuCloseEvent;
+import net.starly.custommenu.action.expansion.listener.event.MenuOpenEvent;
 import net.starly.custommenu.inventory.holder.impl.MenuInvHolder;
 import net.starly.custommenu.inventory.listener.base.InventoryListenerBase;
 import net.starly.custommenu.menu.Menu;
-import net.starly.custommenu.action.Action;
+import net.starly.custommenu.action.data.Action;
 import net.starly.custommenu.action.expansion.general.ActionExpansionRegistry;
-import net.starly.custommenu.button.MenuButton;
-import org.bukkit.Server;
+import net.starly.custommenu.menu.button.MenuButton;
 import org.bukkit.entity.Player;
-import org.bukkit.event.*;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.EventExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
@@ -51,7 +47,7 @@ public class MenuGUI extends InventoryListenerBase {
 
         Menu menu = parseMenu(inventory);
 
-        EventUtil.callMenuListeners(new MenuButtonClickEvent(event.getView(), null, event.getSlot(), event.getClick(), event.getAction(), menu));
+        CallUtil.callMenuListeners(new MenuButtonClickEvent(event.getView(), null, event.getSlot(), event.getClick(), event.getAction(), menu));
 
         if (event.getCurrentItem() != null) {
             unregisterListener(player.getUniqueId());
@@ -73,7 +69,7 @@ public class MenuGUI extends InventoryListenerBase {
         Inventory inventory = event.getInventory();
         Menu menu = parseMenu(inventory);
 
-        EventUtil.callMenuListeners(new MenuCloseEvent(event.getView(), menu));
+        CallUtil.callMenuListeners(new MenuCloseEvent(event.getView(), menu));
     }
 
     @Override
@@ -92,6 +88,6 @@ public class MenuGUI extends InventoryListenerBase {
         }
 
         InventoryView view = openInventoryAndRegisterListener(player, inventory);
-        EventUtil.callMenuListeners(new MenuOpenEvent(view, menu));
+        CallUtil.callMenuListeners(new MenuOpenEvent(view, menu));
     }
 }

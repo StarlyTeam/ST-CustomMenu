@@ -26,7 +26,7 @@ public class ListCommand implements SubCommand {
 
         messageContent.getMessageAfterPrefix(MessageType.NORMAL, "menuList")
                 .map(value -> value
-                        .replace("{list}", "§r§6" + String.join("§7, §6", menuIdList) + "§r"))
+                        .replace("{list}", menuIdList.isEmpty() ? "§7없음" : "§6" + String.join("§7, §6", menuIdList) + "§r"))
                 .ifPresent(sender::sendMessage);
         return true;
     }

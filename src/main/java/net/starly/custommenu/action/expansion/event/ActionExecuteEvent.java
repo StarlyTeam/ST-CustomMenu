@@ -1,14 +1,13 @@
 package net.starly.custommenu.action.expansion.event;
 
 import lombok.Getter;
-import net.starly.custommenu.action.Action;
-import net.starly.custommenu.action.expansion.IExecuteEvent;
+import net.starly.custommenu.action.data.Action;
 import net.starly.custommenu.menu.Menu;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.*;
 import org.jetbrains.annotations.NotNull;
 
-public class ActionExecuteEvent implements IExecuteEvent {
+public class ActionExecuteEvent implements IActionExecuteEvent {
 
     @Getter private final Menu menu;
     @Getter private final int slot;

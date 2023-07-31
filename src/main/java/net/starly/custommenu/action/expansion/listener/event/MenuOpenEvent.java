@@ -1,4 +1,4 @@
-package net.starly.custommenu.event;
+package net.starly.custommenu.action.expansion.listener.event;
 
 import lombok.Getter;
 import net.starly.custommenu.menu.Menu;

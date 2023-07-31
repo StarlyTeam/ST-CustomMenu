@@ -1,10 +1,9 @@
-package net.starly.custommenu.button;
+package net.starly.custommenu.menu.button;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.starly.custommenu.action.Action;
+import net.starly.custommenu.action.data.Action;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 import java.util.ArrayList;

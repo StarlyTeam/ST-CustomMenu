@@ -1,8 +1,8 @@
 package net.starly.custommenu.action.expansion.listener;
 
-import net.starly.custommenu.event.MenuButtonClickEvent;
-import net.starly.custommenu.event.MenuCloseEvent;
-import net.starly.custommenu.event.MenuOpenEvent;
+import net.starly.custommenu.action.expansion.listener.event.MenuButtonClickEvent;
+import net.starly.custommenu.action.expansion.listener.event.MenuCloseEvent;
+import net.starly.custommenu.action.expansion.listener.event.MenuOpenEvent;
 
 public interface MenuListener {
 

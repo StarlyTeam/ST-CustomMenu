@@ -1,6 +1,6 @@
 package net.starly.custommenu.command.sub.impl;
 
-import net.starly.custommenu.action.expansion.IExpansion;
+import net.starly.custommenu.action.expansion.IActionExpansion;
 import net.starly.custommenu.action.expansion.general.ActionExpansionRegistry;
 import net.starly.custommenu.action.expansion.global.GlobalActionExpansionRegistry;
 import net.starly.custommenu.command.sub.SubCommand;
@@ -25,8 +25,8 @@ public class ExpansionListCommand implements SubCommand {
 
         ActionExpansionRegistry expansionRegistry = ActionExpansionRegistry.getInstance();
         GlobalActionExpansionRegistry globalExpansionRegistry = GlobalActionExpansionRegistry.getInstance();
-        List<String> expansionList = expansionRegistry.getAllExpansion().stream().map(IExpansion::getActionType).collect(Collectors.toList());
-        List<String> globalExpansionList = globalExpansionRegistry.getAllExpansion().stream().map(IExpansion::getActionType).collect(Collectors.toList());
+        List<String> expansionList = expansionRegistry.getAllExpansion().stream().map(IActionExpansion::getActionType).collect(Collectors.toList());
+        List<String> globalExpansionList = globalExpansionRegistry.getAllExpansion().stream().map(IActionExpansion::getActionType).collect(Collectors.toList());
 
         messageContent.getMessageAfterPrefix(MessageType.NORMAL, "expansionList")
                 .ifPresent(message -> {

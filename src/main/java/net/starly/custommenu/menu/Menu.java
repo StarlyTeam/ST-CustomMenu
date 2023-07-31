@@ -2,11 +2,10 @@ package net.starly.custommenu.menu;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.starly.custommenu.action.expansion.IExpansion;
 import net.starly.custommenu.action.expansion.global.GlobalActionExpansion;
 import net.starly.custommenu.action.expansion.global.GlobalActionExpansionRegistry;
-import net.starly.custommenu.action.global.GlobalAction;
-import net.starly.custommenu.button.MenuButton;
+import net.starly.custommenu.action.data.GlobalAction;
+import net.starly.custommenu.menu.button.MenuButton;
 
 import java.io.Serializable;
 import java.util.ArrayList;
