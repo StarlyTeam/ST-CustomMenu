@@ -133,14 +133,15 @@ public class ButtonActionEditor extends InventoryListenerBase {
             MessageContent messageContent = MessageContent.getInstance();
             MenuButton button = menu.getButton(holder.getSlot());
             Action action = button.getActionList().get(actionIndex);
-            ActionExpansion expansion = action.getExpansion();
-
-            String prefix = messageContent.getPrefix().orElse("");
-            expansion.getDescriptionLore().forEach(message -> player.sendMessage(prefix + message));
-            messageContent.getMessageAfterPrefix(MessageType.NORMAL, "enterArgs")
-                    .ifPresent(player::sendMessage);
 
             if (event.getClick() == ClickType.LEFT) {
+                ActionExpansion expansion = action.getExpansion();
+
+                String prefix = messageContent.getPrefix().orElse("");
+                expansion.getDescriptionLore().forEach(message -> player.sendMessage(prefix + message));
+                messageContent.getMessageAfterPrefix(MessageType.NORMAL, "enterArgs")
+                        .ifPresent(player::sendMessage);
+
                 ChatInputDispatcher.attachConsumer(player.getUniqueId(), (chatEvent) -> {
                     String message = chatEvent.getMessage();
 
