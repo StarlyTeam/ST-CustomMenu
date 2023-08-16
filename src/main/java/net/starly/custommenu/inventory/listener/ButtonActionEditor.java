@@ -1,13 +1,12 @@
 package net.starly.custommenu.inventory.listener;
 
 import net.starly.custommenu.CustomMenu;
-import net.starly.custommenu.action.data.Action;
-import net.starly.custommenu.action.expansion.IActionExpansion;
-import net.starly.custommenu.action.expansion.general.ActionExpansion;
-import net.starly.custommenu.action.expansion.general.ActionExpansionRegistry;
+import net.starly.custommenu.expansion.action.data.Action;
+import net.starly.custommenu.expansion.action.ActionExpansion;
+import net.starly.custommenu.expansion.action.registry.ActionExpansionRegistry;
 import net.starly.custommenu.menu.button.MenuButton;
 import net.starly.custommenu.dispatcher.ChatInputDispatcher;
-import net.starly.custommenu.inventory.holder.impl.ButtonInvHolder;
+import net.starly.custommenu.inventory.holder.ButtonInvHolder;
 import net.starly.custommenu.inventory.listener.base.InventoryListenerBase;
 import net.starly.custommenu.inventory.page.PaginationManager;
 import net.starly.custommenu.menu.Menu;
@@ -61,7 +60,7 @@ public class ButtonActionEditor extends InventoryListenerBase {
         int slot = event.getSlot();
 
         if (slot == 49) {
-            player.performCommand("st-custommenu:메뉴 애드온 목록");
+            player.performCommand("st-custommenu:메뉴 액션확장");
 
             MessageContent messageContent = MessageContent.getInstance();
             messageContent.getMessageAfterPrefix(MessageType.NORMAL, "enterActionType")
@@ -138,7 +137,7 @@ public class ButtonActionEditor extends InventoryListenerBase {
                 ActionExpansion expansion = action.getExpansion();
 
                 String prefix = messageContent.getPrefix().orElse("");
-                expansion.getDescriptionLore().forEach(message -> player.sendMessage(prefix + message));
+                expansion.getDescriptionLore().forEach(message -> player.sendMessage(prefix + "§r§e• §f" + message));
                 messageContent.getMessageAfterPrefix(MessageType.NORMAL, "enterArgs")
                         .ifPresent(player::sendMessage);
 

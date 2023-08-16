@@ -14,10 +14,9 @@ import java.util.List;
 @AllArgsConstructor
 public class PageHolder implements InventoryHolder {
 
-    private final PaginationManager paginationManager;
-
-    private final int prevBtnSlot;
-    private final int nextBtnSlot;
+    @Getter private final PaginationManager paginationManager;
+    @Getter private final int prevBtnSlot;
+    @Getter private final int nextBtnSlot;
 
 
     @Override

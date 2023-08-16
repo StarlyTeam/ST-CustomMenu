@@ -1,21 +1,19 @@
 package net.starly.custommenu.util;
 
-import net.starly.custommenu.action.expansion.IActionExpansion;
-import net.starly.custommenu.action.exception.ActionExecutionException;
-import net.starly.custommenu.action.exception.ExpansionNotFoundException;
-import net.starly.custommenu.action.expansion.event.ActionExecuteEvent;
-import net.starly.custommenu.action.expansion.event.GlobalActionExecuteEvent;
-import net.starly.custommenu.action.expansion.event.IActionExecuteEvent;
-import net.starly.custommenu.action.expansion.general.ActionExpansion;
-import net.starly.custommenu.action.expansion.general.ActionExpansionRegistry;
-import net.starly.custommenu.action.expansion.global.GlobalActionExpansion;
-import net.starly.custommenu.action.expansion.global.GlobalActionExpansionRegistry;
-import net.starly.custommenu.action.expansion.listener.registry.MenuListenerRegistry;
-import net.starly.custommenu.action.expansion.listener.event.MenuButtonClickEvent;
-import net.starly.custommenu.action.expansion.listener.event.MenuCloseEvent;
-import net.starly.custommenu.action.expansion.listener.event.MenuOpenEvent;
+import net.starly.custommenu.exception.ActionExecutionException;
+import net.starly.custommenu.exception.ExpansionNotFoundException;
+import net.starly.custommenu.expansion.action.event.ActionExecuteEvent;
+import net.starly.custommenu.expansion.action.event.GlobalActionExecuteEvent;
+import net.starly.custommenu.expansion.action.ActionExpansion;
+import net.starly.custommenu.expansion.action.registry.ActionExpansionRegistry;
+import net.starly.custommenu.expansion.action.GlobalActionExpansion;
+import net.starly.custommenu.expansion.action.registry.GlobalActionExpansionRegistry;
+import net.starly.custommenu.menu.listener.registry.MenuListenerRegistry;
+import net.starly.custommenu.menu.listener.event.MenuClickEvent;
+import net.starly.custommenu.menu.listener.event.MenuCloseEvent;
+import net.starly.custommenu.menu.listener.event.MenuOpenEvent;
 
-public class CallUtil {
+public class CallUtil { // 엄..
 
     private CallUtil() {}
 
@@ -50,7 +48,7 @@ public class CallUtil {
         listenerRegistry.getAllListener().forEach(listener -> listener.onClose(event));
     }
 
-    public static void callMenuListeners(MenuButtonClickEvent event) {
+    public static void callMenuListeners(MenuClickEvent event) {
         MenuListenerRegistry listenerRegistry = MenuListenerRegistry.getInstance();
         listenerRegistry.getAllListener().forEach(listener -> listener.onClick(event));
     }

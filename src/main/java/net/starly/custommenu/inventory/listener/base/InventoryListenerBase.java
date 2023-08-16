@@ -1,15 +1,15 @@
 package net.starly.custommenu.inventory.listener.base;
 
 import net.starly.custommenu.CustomMenu;
-import net.starly.custommenu.action.data.Action;
-import net.starly.custommenu.action.data.GlobalAction;
-import net.starly.custommenu.inventory.holder.MenuHolder;
-import net.starly.custommenu.inventory.holder.impl.ActionInvHolder;
-import net.starly.custommenu.inventory.holder.impl.ActionTypeInvHolder;
+import net.starly.custommenu.expansion.action.data.Action;
+import net.starly.custommenu.expansion.action.data.GlobalAction;
+import net.starly.custommenu.inventory.holder.type.MenuHolder;
+import net.starly.custommenu.inventory.holder.ActionInvHolder;
+import net.starly.custommenu.inventory.holder.ActionTypeInvHolder;
 import net.starly.custommenu.inventory.page.PageHolder;
 import net.starly.custommenu.inventory.page.PaginationManager;
 import net.starly.custommenu.menu.Menu;
-import net.starly.custommenu.repo.MenuRepository;
+import net.starly.custommenu.menu.repo.MenuRepository;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventPriority;

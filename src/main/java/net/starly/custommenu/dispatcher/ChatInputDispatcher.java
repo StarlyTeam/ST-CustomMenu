@@ -15,6 +15,14 @@ import java.util.function.Consumer;
 
 public class ChatInputDispatcher implements Listener {
 
+    private ChatInputDispatcher() {}
+
+    public static void register(JavaPlugin plugin) {
+        ChatInputDispatcher dispatcher = new ChatInputDispatcher();
+        plugin.getServer().getPluginManager().registerEvents(dispatcher, plugin);
+    }
+
+
     private static final Map<UUID, Consumer<AsyncPlayerChatEvent>> consumers = new HashMap<>();
 
     public static void attachConsumer(UUID uniqueId, Consumer<AsyncPlayerChatEvent> callback) {

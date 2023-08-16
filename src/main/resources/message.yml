@@ -85,10 +85,14 @@ messages:
   menuTitleSet: "&6{menu} &a메뉴의 제목을 &6{title} &a(으)로 설정하였습니다."
 
 
-  # 애드온 목록을 확인한 경우
-  # {expansion}       : 애드온 목록 (일반액션)
-  # {globalExpansion} : 애드온 목록 (글로벌액션)
-  expansionList: "&a일반액션 &7: &r{expansion} &d| &a글로벌액션 &7: &r{globalExpansion}"
+  # 액션 확장 플러그인을 확인한 경우
+  # {expansion}       : 확장 플러그인 목록 (일반액션)
+  # {globalExpansion} : 확장 플러그인 목록 (글로벌액션)
+  actionExpansionList: "&a일반액션 &7: &r{expansion} &d| &a글로벌액션 &7: &r{globalExpansion}"
+  
+  # 명령어 확장 플러그인을 확인한 경우
+  # {expansion} : 확장 플러그인 목록
+  commandExpansionList: "&a명령어 &7: &r{expansion}"
 
 errorMessages:
   # 명령어를 실행할 권한이 없는 경우

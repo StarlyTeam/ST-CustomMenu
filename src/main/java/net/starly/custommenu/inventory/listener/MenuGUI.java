@@ -2,14 +2,14 @@ package net.starly.custommenu.inventory.listener;
 
 import net.starly.custommenu.CustomMenu;
 import net.starly.custommenu.util.CallUtil;
-import net.starly.custommenu.action.expansion.listener.event.MenuButtonClickEvent;
-import net.starly.custommenu.action.expansion.listener.event.MenuCloseEvent;
-import net.starly.custommenu.action.expansion.listener.event.MenuOpenEvent;
-import net.starly.custommenu.inventory.holder.impl.MenuInvHolder;
+import net.starly.custommenu.menu.listener.event.MenuClickEvent;
+import net.starly.custommenu.menu.listener.event.MenuCloseEvent;
+import net.starly.custommenu.menu.listener.event.MenuOpenEvent;
+import net.starly.custommenu.inventory.holder.MenuInvHolder;
 import net.starly.custommenu.inventory.listener.base.InventoryListenerBase;
 import net.starly.custommenu.menu.Menu;
-import net.starly.custommenu.action.data.Action;
-import net.starly.custommenu.action.expansion.general.ActionExpansionRegistry;
+import net.starly.custommenu.expansion.action.data.Action;
+import net.starly.custommenu.expansion.action.registry.ActionExpansionRegistry;
 import net.starly.custommenu.menu.button.MenuButton;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -47,7 +47,7 @@ public class MenuGUI extends InventoryListenerBase {
 
         Menu menu = parseMenu(inventory);
 
-        CallUtil.callMenuListeners(new MenuButtonClickEvent(event.getView(), null, event.getSlot(), event.getClick(), event.getAction(), menu));
+        CallUtil.callMenuListeners(new MenuClickEvent(event.getView(), null, event.getSlot(), event.getClick(), event.getAction(), menu));
 
         if (event.getCurrentItem() != null) {
             unregisterListener(player.getUniqueId());

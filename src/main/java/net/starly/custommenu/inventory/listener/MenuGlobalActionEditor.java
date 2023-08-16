@@ -1,10 +1,10 @@
 package net.starly.custommenu.inventory.listener;
 
 import net.starly.custommenu.CustomMenu;
-import net.starly.custommenu.action.expansion.global.GlobalActionExpansion;
-import net.starly.custommenu.action.expansion.global.GlobalActionExpansionRegistry;
-import net.starly.custommenu.action.data.GlobalAction;
-import net.starly.custommenu.inventory.holder.impl.MenuInvHolder;
+import net.starly.custommenu.expansion.action.GlobalActionExpansion;
+import net.starly.custommenu.expansion.action.registry.GlobalActionExpansionRegistry;
+import net.starly.custommenu.expansion.action.data.GlobalAction;
+import net.starly.custommenu.inventory.holder.MenuInvHolder;
 import net.starly.custommenu.inventory.listener.base.InventoryListenerBase;
 import net.starly.custommenu.menu.Menu;
 import net.starly.custommenu.util.NBTUtil;

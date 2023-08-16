@@ -2,14 +2,15 @@ package net.starly.custommenu;
 
 import lombok.Getter;
 import net.starly.core.bstats.Metrics;
-import net.starly.custommenu.action.service.CommandActionExpansion;
-import net.starly.custommenu.action.service.global.OnClickActionExpansion;
-import net.starly.custommenu.action.service.global.OnCloseActionExpansion;
-import net.starly.custommenu.action.service.global.OnOpenActionExpansion;
-import net.starly.custommenu.command.CustomMenuExecutor;
+import net.starly.custommenu.config.GlobalPropertyManager;
+import net.starly.custommenu.service.action.general.CommandActionExpansion;
+import net.starly.custommenu.service.action.global.OnClickActionExpansion;
+import net.starly.custommenu.service.action.global.OnCloseActionExpansion;
+import net.starly.custommenu.service.action.global.OnOpenActionExpansion;
+import net.starly.custommenu.command.CustomMenuCmdExecutor;
 import net.starly.custommenu.dispatcher.ChatInputDispatcher;
 import net.starly.custommenu.message.MessageLoader;
-import net.starly.custommenu.repo.MenuRepository;
+import net.starly.custommenu.menu.repo.MenuRepository;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -19,7 +20,6 @@ import java.io.File;
 public class CustomMenu extends JavaPlugin {
 
     @Getter private static CustomMenu instance;
-
 
     @Override
     public void onLoad() {
@@ -43,6 +43,10 @@ public class CustomMenu extends JavaPlugin {
 
         /* CONFIG
          ──────────────────────────────────────────────────────────────────────────────────────────────────────────────── */
+        File configFile = new File(getDataFolder(), "config.properties");
+        if (!configFile.exists()) saveResource("config.properties", false);
+        GlobalPropertyManager.getInstance().loadAll(configFile);
+
         File messageConfigFile = new File(getDataFolder(), "message.yml");
         if (!messageConfigFile.exists()) saveResource("message.yml", false);
         MessageLoader.load(YamlConfiguration.loadConfiguration(messageConfigFile));
@@ -54,27 +58,30 @@ public class CustomMenu extends JavaPlugin {
 
         /* COMMAND
          ──────────────────────────────────────────────────────────────────────────────────────────────────────────────── */
-        CustomMenuExecutor customMenuExecutor = new CustomMenuExecutor();
-        getCommand("custom-menu").setExecutor(customMenuExecutor);
-        getCommand("custom-menu").setTabCompleter(customMenuExecutor);
+        CustomMenuCmdExecutor.register(getCommand("custom-menu"));
 
         /* LISTENER
          ──────────────────────────────────────────────────────────────────────────────────────────────────────────────── */
-        getServer().getPluginManager().registerEvents(new ChatInputDispatcher(), this);
+        ChatInputDispatcher.register(this);
 
         /* DEFAULT EXPANSION (GENERAL)
          ──────────────────────────────────────────────────────────────────────────────────────────────────────────────── */
-        new CommandActionExpansion().register();
+        CommandActionExpansion.register();
 
         /* DEFAULT EXPANSION (GLOBAL)
          ──────────────────────────────────────────────────────────────────────────────────────────────────────────────── */
-        new OnOpenActionExpansion().register();
-        new OnCloseActionExpansion().register();
-        new OnClickActionExpansion().register();
+        OnOpenActionExpansion.register();
+        OnCloseActionExpansion.register();
+        OnClickActionExpansion.register();
     }
 
     @Override
     public void onDisable() {
+        /* CONFIG
+         ──────────────────────────────────────────────────────────────────────────────────────────────────────────────── */
+        File configFile = new File(getDataFolder(), "config.properties");
+        GlobalPropertyManager.getInstance().saveAll(configFile);
+
         MenuRepository.getInstance().saveAllMenu();
     }
 

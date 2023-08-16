@@ -7,12 +7,10 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
 public class PaginationManager {
 
-    private final List<SinglePage> pages;
-    private int currentPage;
+    @Getter private final List<SinglePage> pages;
+    @Getter @Setter private int currentPage;
 
     public PaginationManager(List<ItemStack> items, int itemPerPage) {
         this.pages = paginateItems(items, itemPerPage);

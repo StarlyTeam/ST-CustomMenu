@@ -1,15 +1,15 @@
 package net.starly.custommenu.inventory.listener;
 
 import net.starly.custommenu.CustomMenu;
-import net.starly.custommenu.action.data.GlobalAction;
+import net.starly.custommenu.expansion.action.data.GlobalAction;
 import net.starly.custommenu.dispatcher.ChatInputDispatcher;
-import net.starly.custommenu.inventory.holder.impl.ActionTypeInvHolder;
+import net.starly.custommenu.inventory.holder.ActionTypeInvHolder;
 import net.starly.custommenu.inventory.listener.base.InventoryListenerBase;
 import net.starly.custommenu.inventory.page.PaginationManager;
 import net.starly.custommenu.menu.Menu;
 import net.starly.custommenu.message.MessageContent;
 import net.starly.custommenu.message.MessageType;
-import net.starly.custommenu.repo.MenuRepository;
+import net.starly.custommenu.menu.repo.MenuRepository;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;

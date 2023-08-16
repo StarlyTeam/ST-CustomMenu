@@ -2,7 +2,7 @@ package net.starly.custommenu.menu.button;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.starly.custommenu.action.data.Action;
+import net.starly.custommenu.expansion.action.data.Action;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.Serializable;
