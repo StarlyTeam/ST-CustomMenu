@@ -14,15 +14,15 @@ import java.util.List;
 @AllArgsConstructor
 public class PageHolder implements InventoryHolder {
 
-    @Getter private final PaginationManager paginationManager;
-    @Getter private final int prevBtnSlot;
-    @Getter private final int nextBtnSlot;
+    private final PaginationManager paginationManager;
+    private final int prevBtnSlot;
+    private final int nextBtnSlot;
 
 
     @Override
     @Deprecated
     public Inventory getInventory() {
-        throw new UnsupportedOperationException("지원되지 않는 메소드 호출 입니다.");
+        throw new UnsupportedOperationException("지원되지 않는 메소드 호출입니다.");
     }
 
     public Inventory getInventory(Inventory baseInventory) {
