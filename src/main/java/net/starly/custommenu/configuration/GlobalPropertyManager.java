@@ -1,4 +1,4 @@
-package net.starly.custommenu.config;
+package net.starly.custommenu.configuration;
 
 import java.io.*;
 import java.util.Properties;

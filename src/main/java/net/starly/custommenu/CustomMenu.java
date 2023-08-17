@@ -2,7 +2,7 @@ package net.starly.custommenu;
 
 import lombok.Getter;
 import net.starly.core.bstats.Metrics;
-import net.starly.custommenu.config.GlobalPropertyManager;
+import net.starly.custommenu.configuration.GlobalPropertyManager;
 import net.starly.custommenu.service.action.general.CommandActionExpansion;
 import net.starly.custommenu.service.action.global.OnClickActionExpansion;
 import net.starly.custommenu.service.action.global.OnCloseActionExpansion;
