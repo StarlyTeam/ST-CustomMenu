@@ -20,20 +20,13 @@ public class MenuDeleteCmd extends SubCommandExecutor {
     public boolean onCommand(CommandSender sender, String[] args) {
         MessageContent messageContent = MessageContent.getInstance();
 
-        if (!(sender instanceof Player)) {
-            messageContent.getMessageAfterPrefix(MessageType.ERROR, "wrongPlatform")
-                    .ifPresent(sender::sendMessage);
-            return false;
-        }
-        Player player = (Player) sender;
-
         if (args.length == 0) {
             messageContent.getMessageAfterPrefix(MessageType.ERROR, "noMenuId")
-                    .ifPresent(player::sendMessage);
+                    .ifPresent(sender::sendMessage);
             return false;
         } else if (args.length != 1) {
             messageContent.getMessageAfterPrefix(MessageType.ERROR, "wrongCommand")
-                    .ifPresent(player::sendMessage);
+                    .ifPresent(sender::sendMessage);
             return false;
         }
 
@@ -43,7 +36,7 @@ public class MenuDeleteCmd extends SubCommandExecutor {
         Menu menu = menuRepository.getMenu(menuId);
         if (menu == null) {
             messageContent.getMessageAfterPrefix(MessageType.ERROR, "menuNotFound")
-                    .ifPresent(player::sendMessage);
+                    .ifPresent(sender::sendMessage);
             return false;
         }
 
@@ -52,7 +45,7 @@ public class MenuDeleteCmd extends SubCommandExecutor {
         messageContent.getMessageAfterPrefix(MessageType.NORMAL, "menuDeleted")
                 .map(value -> value
                         .replace("{menu}", menuId))
-                .ifPresent(player::sendMessage);
+                .ifPresent(sender::sendMessage);
         return true;
     }
 
