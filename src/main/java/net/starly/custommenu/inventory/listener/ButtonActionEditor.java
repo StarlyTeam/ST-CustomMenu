@@ -60,7 +60,7 @@ public class ButtonActionEditor extends InventoryListenerBase {
         int slot = event.getSlot();
 
         if (slot == 49) {
-            player.performCommand("st-custommenu:메뉴 액션확장");
+            player.performCommand("st-custommenu:custom-menu 액션확장");
 
             MessageContent messageContent = MessageContent.getInstance();
             messageContent.getMessageAfterPrefix(MessageType.NORMAL, "enterActionType")
