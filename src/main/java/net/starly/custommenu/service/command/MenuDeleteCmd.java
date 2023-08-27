@@ -20,17 +20,17 @@ public class MenuDeleteCmd extends SubCommandExecutor {
     public boolean onCommand(CommandSender sender, String[] args) {
         MessageContent messageContent = MessageContent.getInstance();
 
-        if (args.length == 0) {
+        if (args.length == 1) {
             messageContent.getMessageAfterPrefix(MessageType.ERROR, "noMenuId")
                     .ifPresent(sender::sendMessage);
             return false;
-        } else if (args.length != 1) {
+        } else if (args.length != 2) {
             messageContent.getMessageAfterPrefix(MessageType.ERROR, "wrongCommand")
                     .ifPresent(sender::sendMessage);
             return false;
         }
 
-        String menuId = args[0];
+        String menuId = args[1];
 
         MenuRepository menuRepository = MenuRepository.getInstance();
         Menu menu = menuRepository.getMenu(menuId);

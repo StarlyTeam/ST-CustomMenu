@@ -27,17 +27,17 @@ public class MenuEditCmd extends SubCommandExecutor {
         }
         Player player = (Player) sender;
 
-        if (args.length == 0) {
+        if (args.length == 1) {
             messageContent.getMessageAfterPrefix(MessageType.ERROR, "noMenuId")
                     .ifPresent(player::sendMessage);
             return false;
-        } else if (args.length != 1) {
+        } else if (args.length != 2) {
             messageContent.getMessageAfterPrefix(MessageType.ERROR, "wrongCommand")
                     .ifPresent(player::sendMessage);
             return false;
         }
 
-        String menuId = args[0];
+        String menuId = args[1];
 
         MenuRepository menuRepository = MenuRepository.getInstance();
         Menu menu = menuRepository.getMenu(menuId);

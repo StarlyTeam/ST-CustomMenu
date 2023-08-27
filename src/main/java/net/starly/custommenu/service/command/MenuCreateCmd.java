@@ -18,23 +18,23 @@ public class MenuCreateCmd extends SubCommandExecutor {
     public boolean onCommand(CommandSender sender, String[] args) {
         MessageContent messageContent = MessageContent.getInstance();
 
-        if (args.length == 0) {
+        if (args.length == 1) {
             messageContent.getMessageAfterPrefix(MessageType.ERROR, "noMenuId")
                     .ifPresent(sender::sendMessage);
             return false;
-        } else if (args.length == 1) {
+        } else if (args.length == 2) {
             messageContent.getMessageAfterPrefix(MessageType.ERROR, "noMenuLine")
                     .ifPresent(sender::sendMessage);
             return false;
-        } else if (args.length == 2) {
+        } else if (args.length == 3) {
             messageContent.getMessageAfterPrefix(MessageType.ERROR, "noMenuTitle")
                     .ifPresent(sender::sendMessage);
             return false;
         }
 
-        String menuId = args[0];
+        String menuId = args[1];
         String menuTitle = String.join(" ",
-                Arrays.copyOfRange(args, 2, args.length)
+                Arrays.copyOfRange(args, 3, args.length)
         )
                 .replace("\\s", " ");
 
@@ -46,7 +46,7 @@ public class MenuCreateCmd extends SubCommandExecutor {
 
         int menuLine;
         try {
-            String menuLineStr = args[1];
+            String menuLineStr = args[2];
             menuLine = Integer.parseInt(menuLineStr);
 
             if (menuLine < 1 || menuLine > 6) {

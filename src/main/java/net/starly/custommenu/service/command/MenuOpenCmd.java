@@ -24,33 +24,33 @@ public class MenuOpenCmd extends SubCommandExecutor {
         MessageContent messageContent = MessageContent.getInstance();
 
         Player target;
-        if (args.length == 0) {
+        if (args.length == 1) {
             messageContent.getMessageAfterPrefix(MessageType.ERROR, "noMenuId")
                     .ifPresent(sender::sendMessage);
             return false;
-        } else if (args.length == 1) {
+        } else if (args.length == 2) {
             if (!(sender instanceof Player)) {
                 messageContent.getMessageAfterPrefix(MessageType.ERROR, "wrongPlatform")
                         .ifPresent(sender::sendMessage);
                 return false;
             }
 
-            if (!sender.hasPermission("starly.custommenu.open." + args[0] + ".self")) {
+            if (!sender.hasPermission("starly.custommenu.open." + args[1] + ".self")) {
                 messageContent.getMessageAfterPrefix(MessageType.ERROR, "noPermission")
                         .ifPresent(sender::sendMessage);
                 return false;
             }
 
             target = (Player) sender;
-        } else if (args.length == 2) {
-            if (!sender.hasPermission("starly.custommenu.open." + args[0] + ".other")) {
+        } else if (args.length == 3) {
+            if (!sender.hasPermission("starly.custommenu.open." + args[1] + ".other")) {
                 messageContent.getMessageAfterPrefix(MessageType.ERROR, "noPermission")
                         .ifPresent(sender::sendMessage);
                 return false;
             }
 
             JavaPlugin plugin = CustomMenu.getInstance();
-            target = plugin.getServer().getPlayerExact(args[1]);
+            target = plugin.getServer().getPlayerExact(args[2]);
             if (target == null) {
                 messageContent.getMessageAfterPrefix(MessageType.ERROR, "playerNotFound")
                         .ifPresent(sender::sendMessage);
@@ -62,7 +62,7 @@ public class MenuOpenCmd extends SubCommandExecutor {
             return false;
         }
 
-        String menuId = args[0];
+        String menuId = args[1];
 
         MenuRepository menuRepository = MenuRepository.getInstance();
         Menu menu = menuRepository.getMenu(menuId);

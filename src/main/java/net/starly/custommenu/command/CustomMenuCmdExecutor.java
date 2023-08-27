@@ -61,7 +61,7 @@ public class CustomMenuCmdExecutor implements TabExecutor {
             return false;
         }
 
-        return commandExecutor.onCommand(sender, Arrays.copyOfRange(args, 1, args.length));
+        return commandExecutor.onCommand(sender, args);
     }
 
     @Override

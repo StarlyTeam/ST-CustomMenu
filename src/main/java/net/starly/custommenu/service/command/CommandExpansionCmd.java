@@ -19,7 +19,7 @@ public class CommandExpansionCmd extends SubCommandExecutor {
     public boolean onCommand(CommandSender sender, String[] args) {
         MessageContent messageContent = MessageContent.getInstance();
 
-        if (args.length != 0) {
+        if (args.length != 1) {
             messageContent.getMessageAfterPrefix(MessageType.ERROR, "wrongCommand")
                     .ifPresent(sender::sendMessage);
             return false;

@@ -20,11 +20,18 @@ public class PluginReloadCmd extends SubCommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, String[] args) {
-        JavaPlugin plugin = CustomMenu.getInstance();
         MessageContent messageContent = MessageContent.getInstance();
 
+        if (args.length != 1) {
+            messageContent.getMessageAfterPrefix(MessageType.ERROR, "wrongCommand")
+                    .ifPresent(sender::sendMessage);
+            return false;
+        }
+
+        JavaPlugin plugin = CustomMenu.getInstance();
         File configFile = new File(plugin.getDataFolder(), "message.yml");
         MessageLoader.load(YamlConfiguration.loadConfiguration(configFile));
+
         MenuRepository.getInstance().loadAllMenu();
 
         messageContent.getMessageAfterPrefix(MessageType.NORMAL, "reloadComplete")
