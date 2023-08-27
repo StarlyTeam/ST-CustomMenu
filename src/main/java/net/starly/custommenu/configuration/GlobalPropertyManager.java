@@ -21,8 +21,8 @@ public class GlobalPropertyManager {
         return new Properties(properties);
     }
 
-    public Object getProperty(String key) {
-        return properties.get(key);
+    public String getProperty(String key) {
+        return properties.getProperty(key);
     }
 
     public void setProperty(String key, String value) {
