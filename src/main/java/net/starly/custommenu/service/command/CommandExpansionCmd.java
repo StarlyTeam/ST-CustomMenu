@@ -46,6 +46,6 @@ public class CommandExpansionCmd extends SubCommandExecutor {
 
     @Override
     public @NotNull Optional<String> getPermission() {
-        return Optional.of("starly.custommenu.expansion.list");
+        return Optional.of("starly.custommenu.expansion.command");
     }
 }
