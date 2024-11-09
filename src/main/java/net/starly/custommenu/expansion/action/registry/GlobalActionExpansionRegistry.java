@@ -1,6 +1,6 @@
 package net.starly.custommenu.expansion.action.registry;
 
-import net.starly.core.util.PreCondition;
+import com.google.common.base.Preconditions;
 import net.starly.custommenu.CustomMenu;
 import net.starly.custommenu.expansion.action.data.Action;
 import net.starly.custommenu.expansion.action.data.GlobalAction;
@@ -26,7 +26,7 @@ public class GlobalActionExpansionRegistry {
     private final Map<String, GlobalActionExpansion> expansionMap = new HashMap<>();
 
     public boolean registerExpansion(GlobalActionExpansion expansion) {
-        PreCondition.nonNull(expansion, "expansion");
+        Preconditions.checkNotNull(expansion, "expansion");
         if (isExpansionRegistered(expansion.getActionType())) return false;
 
         expansionMap.put(expansion.getActionType(), expansion);
@@ -34,7 +34,7 @@ public class GlobalActionExpansionRegistry {
     }
 
     public GlobalActionExpansion getExpansion(String actionType) {
-        PreCondition.nonNull(actionType, "actionType");
+        Preconditions.checkNotNull(actionType, "actionType");
 
         return expansionMap.get(actionType);
     }
@@ -44,13 +44,13 @@ public class GlobalActionExpansionRegistry {
     }
 
     public boolean isExpansionRegistered(String actionType) {
-        PreCondition.nonNull(actionType, "actionType");
+        Preconditions.checkNotNull(actionType, "actionType");
 
         return expansionMap.containsKey(actionType);
     }
 
     public boolean unregisterExpansion(String actionType) {
-        PreCondition.nonNull(actionType, "actionType");
+        Preconditions.checkNotNull(actionType, "actionType");
         if (!isExpansionRegistered(actionType)) return false;
 
         expansionMap.remove(actionType);

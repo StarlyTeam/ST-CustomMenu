@@ -1,8 +1,6 @@
 package net.starly.custommenu.util;
 
-import net.starly.core.jb.version.nms.tank.NmsItemStackUtil;
-import net.starly.core.jb.version.nms.wrapper.ItemStackWrapper;
-import net.starly.core.jb.version.nms.wrapper.NBTTagCompoundWrapper;
+import de.tr7zw.nbtapi.NBT;
 import org.bukkit.inventory.ItemStack;
 
 public class NBTUtil {
@@ -11,25 +9,24 @@ public class NBTUtil {
 
 
     public static ItemStack setNBT(ItemStack itemStack, String key, String value) {
-        ItemStackWrapper nmsStack = NmsItemStackUtil.getInstance().asNMSCopy(itemStack);
-        NBTTagCompoundWrapper tagCompound = nmsStack.getTag();
-        if (tagCompound == null) tagCompound = NmsItemStackUtil.getInstance().getNbtCompoundUtil().newInstance();
-        tagCompound.setString(key, value);
-        return NmsItemStackUtil.getInstance().asBukkitCopy(nmsStack);
+        NBT.modify(itemStack, (nbt) -> {
+            nbt.setString(key, value);
+        });
+
+        return itemStack;
     }
 
     public static String getNBT(ItemStack itemStack, String key) {
-        ItemStackWrapper nmsStack = NmsItemStackUtil.getInstance().asNMSCopy(itemStack);
-        NBTTagCompoundWrapper tagCompound = nmsStack.getTag();
-        if (tagCompound == null) return null;
-        return tagCompound.getString(key);
+        return NBT.get(itemStack, (nbt) -> {
+            return nbt.getString(key);
+        });
     }
 
     public static ItemStack removeNBT(ItemStack itemStack, String key) {
-        ItemStackWrapper nmsStack = NmsItemStackUtil.getInstance().asNMSCopy(itemStack);
-        NBTTagCompoundWrapper tagCompound = nmsStack.getTag();
-        if (tagCompound == null) return itemStack;
-        tagCompound.setString(key, null);
-        return NmsItemStackUtil.getInstance().asBukkitCopy(nmsStack);
+        NBT.modify(itemStack, (nbt) -> {
+            nbt.removeKey(key);
+        });
+
+        return itemStack;
     }
 }

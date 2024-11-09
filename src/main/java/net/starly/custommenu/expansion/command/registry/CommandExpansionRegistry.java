@@ -1,6 +1,6 @@
 package net.starly.custommenu.expansion.command.registry;
 
-import net.starly.core.util.PreCondition;
+import com.google.common.base.Preconditions;
 import net.starly.custommenu.command.CustomMenuCmdExecutor;
 import net.starly.custommenu.expansion.command.CommandExpansion;
 
@@ -24,7 +24,7 @@ public class CommandExpansionRegistry {
     private final Map<String, CommandExpansion> expansionMap = new HashMap<>();
 
     public boolean registerExpansion(CommandExpansion expansion) {
-        PreCondition.nonNull(expansion, "expansion");
+        Preconditions.checkNotNull(expansion, "expansion");
         if (isExpansionRegistered(expansion.getLabelName())) return false;
 
         expansionMap.put(expansion.getLabelName(), expansion);
@@ -33,7 +33,7 @@ public class CommandExpansionRegistry {
     }
 
     public CommandExpansion getExpansion(String labelName) {
-        PreCondition.nonNull(labelName, "labelName");
+        Preconditions.checkNotNull(labelName, "labelName");
 
         return expansionMap.get(labelName);
     }
@@ -43,13 +43,13 @@ public class CommandExpansionRegistry {
     }
 
     public boolean isExpansionRegistered(String labelName) {
-        PreCondition.nonNull(labelName, "labelName");
+        Preconditions.checkNotNull(labelName, "labelName");
 
         return expansionMap.containsKey(labelName);
     }
 
     public boolean unregisterExpansion(String labelName) {
-        PreCondition.nonNull(labelName, "labelName");
+        Preconditions.checkNotNull(labelName, "labelName");
         if (!isExpansionRegistered(labelName)) return false;
 
         expansionMap.remove(labelName);

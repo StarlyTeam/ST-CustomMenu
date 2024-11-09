@@ -1,11 +1,10 @@
 package net.starly.custommenu.message;
 
-import net.starly.core.util.PreCondition;
+import com.google.common.base.Preconditions;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 public class MessageLoader {
 
@@ -15,8 +14,8 @@ public class MessageLoader {
     }
 
     private static void loadMessageSection(ConfigurationSection section, MessageType type) {
-        PreCondition.nonNull(type, "type");
-        PreCondition.nonNull(section, "메세지를 로드할 수 없습니다. : " + type.name());
+        Preconditions.checkNotNull(type, "type");
+        Preconditions.checkNotNull(section, "메세지를 로드할 수 없습니다. : " + type.name());
 
         MessageContent msgContext = MessageContent.getInstance();
         section.getKeys(true).forEach(key -> {

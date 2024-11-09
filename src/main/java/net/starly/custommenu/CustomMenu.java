@@ -1,7 +1,6 @@
 package net.starly.custommenu;
 
 import lombok.Getter;
-import net.starly.core.bstats.Metrics;
 import net.starly.custommenu.configuration.GlobalPropertyManager;
 import net.starly.custommenu.service.action.general.CommandActionExpansion;
 import net.starly.custommenu.service.action.global.OnClickActionExpansion;
@@ -28,19 +27,6 @@ public class CustomMenu extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        /* DEPENDENCY
-         ──────────────────────────────────────────────────────────────────────────────────────────────────────────────── */
-        if (!isPluginEnabled("ST-Core")) {
-            getServer().getLogger().warning("[" + getName() + "] ST-Core 플러그인이 적용되지 않았습니다! 플러그인을 비활성화합니다.");
-            getServer().getLogger().warning("[" + getName() + "] 다운로드 링크 : §fhttp://starly.kr/");
-            getServer().getPluginManager().disablePlugin(this);
-            return;
-        }
-
-        /* SETUP
-         ──────────────────────────────────────────────────────────────────────────────────────────────────────────────── */
-        new Metrics(this, 18953);
-
         /* CONFIG
          ──────────────────────────────────────────────────────────────────────────────────────────────────────────────── */
         File configFile = new File(getDataFolder(), "config.properties");

@@ -20,8 +20,7 @@ public class CommandActionExpansion extends ActionExpansion {
         CommandActionExpansion expansion = new CommandActionExpansion();
         ActionExpansionRegistry expansionRegistry = ActionExpansionRegistry.getInstance();
 
-        boolean success = true;
-        if (expansionRegistry == null) success = false;
+        boolean success = expansionRegistry != null;
         if (expansionRegistry.isExpansionRegistered(expansion.getActionType())) success = false;
 
         expansionRegistry.registerExpansion(expansion);

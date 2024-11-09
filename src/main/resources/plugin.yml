@@ -5,8 +5,7 @@ website: http://starly.kr/
 
 description: CustomMenu Plugin.
 
-softdepend:
-  - ST-Core
+depend: [ NBTAPI ]
 
 version: 1.1
 api-version: 1.13
